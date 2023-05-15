@@ -15,6 +15,9 @@ CREATE TABLE IF NOT EXISTS `users`
     `id`          INT         NOT NULL AUTO_INCREMENT,
     `phoneNumber` VARCHAR(45) NOT NULL,
     `login`       VARCHAR(45) NOT NULL,
+    `firstName`       VARCHAR(45) NOT NULL,
+    `lastName`       VARCHAR(45) NOT NULL,
+    `role`       VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC) VISIBLE
 );
