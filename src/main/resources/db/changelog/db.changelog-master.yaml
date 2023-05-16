@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/db.changelog-1.0-15.05.sql
+      file: db/changelog/db.changelog-1.1-16.05.sql
+  - include:
+      file: db/changelog/db.changeSetUser.sql
