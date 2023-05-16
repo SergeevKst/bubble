@@ -1,7 +1,6 @@
 package com.generation.application.model;
 
 import com.generation.application.role.Role;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,8 +29,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int idUser;
+    private int id;
     private String phoneNumber;
     private String login;
     @Enumerated(EnumType.STRING)
