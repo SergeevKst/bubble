@@ -1,7 +1,7 @@
-# liquibase formatted sql
+-- liquibase formatted sql
 CREATE DATABASE IF NOT EXISTS bubbleshop;
-# changeset paramonov:1
-CREATE TABLE IF NOT EXISTS bubbleshop.employee
+-- changeset paramonov:1
+CREATE TABLE IF NOT EXISTS bubbleshop.`employee`
 (
     `id`   INT         NOT NULL AUTO_INCREMENT,
     `role` VARCHAR(45) NULL DEFAULT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.employee
 );
 -- rollback DROP TABLE `employee` CASCADE;
 
-# changeset paramonov:2
+-- changeset paramonov:2
 CREATE TABLE IF NOT EXISTS bubbleshop.users
 (
     `id`          INT         NOT NULL AUTO_INCREMENT,
@@ -18,12 +18,13 @@ CREATE TABLE IF NOT EXISTS bubbleshop.users
     `firstName`   VARCHAR(45) NOT NULL,
     `lastName`    VARCHAR(45) NOT NULL,
     `role`        VARCHAR(45) NOT NULL,
+    `password`    VARCHAR(300) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC) VISIBLE
 );
 -- rollback DROP TABLE `users` CASCADE;
 
-# changeset paramonov:3
+-- changeset paramonov:3
 CREATE TABLE IF NOT EXISTS bubbleshop.order
 (
     `id`           INT  NOT NULL AUTO_INCREMENT,
@@ -33,13 +34,13 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order
     INDEX `fk_order_user_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_order_user`
         FOREIGN KEY (`user_id`)
-            REFERENCES bubbleshop.users (`id`)
+            REFERENCES `users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
 -- rollback DROP TABLE `order` CASCADE;
 
-# changeset paramonov:4
+-- changeset paramonov:4
 CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
 (
     `idorder_details` INT         NOT NULL AUTO_INCREMENT,
@@ -52,14 +53,14 @@ CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
     INDEX `fk_orderdetails_order1_idx` (`order_id` ASC) VISIBLE,
     CONSTRAINT `fk_orderdetails_order1`
         FOREIGN KEY (`order_id`)
-            REFERENCES bubbleshop.order (`id`)
+            REFERENCES `order` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
 -- rollback DROP TABLE `orderdetails` CASCADE;
 
-# changeset paramonov:5
-CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
+-- changeset paramonov:5
+CREATE TABLE IF NOT EXISTS bubbleshop.`order_has_employee`
 (
     `order_id`    INT NOT NULL,
     `employee_id` INT NOT NULL,
@@ -68,18 +69,18 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
     INDEX `fk_order_has_employee_order1_idx` (`order_id` ASC) VISIBLE,
     CONSTRAINT `fk_order_has_employee_order1`
         FOREIGN KEY (`order_id`)
-            REFERENCES bubbleshop.order (`id`)
+            REFERENCES `order` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_order_has_employee_employee1`
         FOREIGN KEY (`employee_id`)
-            REFERENCES bubbleshop.employee (`id`)
+            REFERENCES `employee` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
 -- rollback DROP TABLE `order_has_employee` CASCADE;
 
-# changeset paramonov:6
+-- changeset paramonov:6
 CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
 (
     `id`              INT         NOT NULL,
