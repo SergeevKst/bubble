@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.employee
     `role` VARCHAR(45) NULL DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
-#rollback DROP TABLE `employee` CASCADE;
+-- rollback DROP TABLE `employee` CASCADE;
 
 # changeset paramonov:2
 CREATE TABLE IF NOT EXISTS bubbleshop.users
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.users
     PRIMARY KEY (`id`),
     UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC) VISIBLE
 );
-# rollback DROP TABLE `users` CASCADE;
+-- rollback DROP TABLE `users` CASCADE;
 
 # changeset paramonov:3
 CREATE TABLE IF NOT EXISTS bubbleshop.order
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
-# rollback DROP TABLE `order` CASCADE;
+-- rollback DROP TABLE `order` CASCADE;
 
 # changeset paramonov:4
 CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
-# rollback DROP TABLE `orderdetails` CASCADE;
+-- rollback DROP TABLE `orderdetails` CASCADE;
 
 # changeset paramonov:5
 CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
-# rollback DROP TABLE `order_has_employee` CASCADE;
+-- rollback DROP TABLE `order_has_employee` CASCADE;
 
 # changeset paramonov:6
 CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
@@ -87,4 +87,4 @@ CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
     `amaterial_count` INT         NULL,
     PRIMARY KEY (`id`)
 )
-# rollback DROP TABLE `storehouse` CASCADE;
+-- rollback DROP TABLE `storehouse` CASCADE;
