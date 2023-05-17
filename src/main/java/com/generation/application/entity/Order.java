@@ -37,7 +37,7 @@ public class Order implements BaseEntity<Integer>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToMany
+    @ManyToMany(mappedBy = "orders",cascade = CascadeType.PERSIST)
     private Set<User> users = new HashSet<>();
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

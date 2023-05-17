@@ -16,7 +16,7 @@
         <spring.doc>2.0.4</spring.doc>
         <lombok>1.18.26</lombok>
         <jwt>0.11.5</jwt>
-        <hibernate.validator>6.0.13.Final</hibernate.validator>
+        <hibernate.validator>8.0.0.Final</hibernate.validator>
     </properties>
     <dependencyManagement>
         <dependencies>

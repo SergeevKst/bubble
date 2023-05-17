@@ -1,15 +1,7 @@
 package com.generation.application.entity;
 
 import com.generation.application.model.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +24,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -48,7 +40,12 @@ public class User implements Serializable, UserDetails {
     @Column(name = "last_name")
     private String lastName;
     private String password;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_order",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "order_id")}
+    )
     private Set<Order> orders = new HashSet<>();
 
     @Override
