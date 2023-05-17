@@ -2,7 +2,7 @@ package com.generation.application.service.ipml;
 
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.UserService;
-import com.generation.application.model.User;
+import com.generation.application.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,14 @@
 package com.generation.application.entity;
 
 import com.generation.application.model.Role;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +22,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @NoArgsConstructor
@@ -28,20 +32,24 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users", schema = "bubbleshop")
+@Table(name = "users")
 public class User implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String phoneNumber;
     private String login;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
     private String password;
+    @ManyToMany
+    private Set<Order> orders = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

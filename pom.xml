@@ -37,6 +37,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!--    The next need for OpenApi documentation-->
         <dependency>
             <groupId>org.springdoc</groupId>

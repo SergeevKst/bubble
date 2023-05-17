@@ -1,8 +1,8 @@
 package com.generation.application.auth;
 
 import com.generation.application.jwt.JwtService;
-import com.generation.application.model.User;
-import com.generation.application.role.Role;
+import com.generation.application.entity.User;
+import com.generation.application.model.Role;
 import com.generation.application.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -15,6 +18,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,17 +30,15 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "order")
-public class Order implements BaseEntity<Long> {
+public class Order implements BaseEntity<Integer>, Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @ManyToOne
-    private Employee manager;
-    @ManyToOne
-    private Deliver deliverId;
-    @ManyToOne
-    private User userId;
+    private Integer id;
+    @ManyToMany
+    private Set<User> users = new HashSet<>();
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private OrderDetails orderDetails;
