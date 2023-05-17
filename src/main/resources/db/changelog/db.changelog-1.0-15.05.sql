@@ -1,6 +1,6 @@
--- liquibase formatted sql
+# liquibase formatted sql
 CREATE DATABASE IF NOT EXISTS bubbleshop;
--- changeset paramonov:1
+# changeset paramonov:1
 CREATE TABLE IF NOT EXISTS bubbleshop.employee
 (
     `id`   INT         NOT NULL AUTO_INCREMENT,
@@ -9,21 +9,22 @@ CREATE TABLE IF NOT EXISTS bubbleshop.employee
 );
 -- rollback DROP TABLE `employee` CASCADE;
 
--- changeset paramonov:2
+# changeset paramonov:2
 CREATE TABLE IF NOT EXISTS bubbleshop.users
 (
     `id`          INT         NOT NULL AUTO_INCREMENT,
     `phoneNumber` VARCHAR(45) NOT NULL,
     `login`       VARCHAR(45) NOT NULL,
-    `first_Name`   VARCHAR(45) NOT NULL,
-    `last_Name`    VARCHAR(45) NOT NULL,
+    `firstName`   VARCHAR(45) NOT NULL,
+    `lastName`    VARCHAR(45) NOT NULL,
     `role`        VARCHAR(45) NOT NULL,
+    `password`    VARCHAR(300) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC) VISIBLE
 );
 -- rollback DROP TABLE `users` CASCADE;
 
--- changeset paramonov:3
+# changeset paramonov:3
 CREATE TABLE IF NOT EXISTS bubbleshop.order
 (
     `id`           INT  NOT NULL AUTO_INCREMENT,
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order
 );
 -- rollback DROP TABLE `order` CASCADE;
 
--- changeset paramonov:4
+# changeset paramonov:4
 CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
 (
     `idorder_details` INT         NOT NULL AUTO_INCREMENT,
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
 );
 -- rollback DROP TABLE `orderdetails` CASCADE;
 
--- changeset paramonov:5
+# changeset paramonov:5
 CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
 (
     `order_id`    INT NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
 );
 -- rollback DROP TABLE `order_has_employee` CASCADE;
 
--- changeset paramonov:6
+# changeset paramonov:6
 CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
 (
     `id`              INT         NOT NULL,
