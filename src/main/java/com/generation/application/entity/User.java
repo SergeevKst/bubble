@@ -1,6 +1,6 @@
-package com.generation.application.model;
+package com.generation.application.entity;
 
-import com.generation.application.role.Role;
+import com.generation.application.model.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
