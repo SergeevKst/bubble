@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_details (
     `cost` DECIMAL(10,2) NOT NULL,
     `bubble_count` INT NOT NULL,
     `delivery_date` DATE NULL DEFAULT NULL,
+    `create_date` DATE NULL DEFAULT NULL,
     `status` VARCHAR(45) NULL DEFAULT NULL,
     `order_id` INT NOT NULL,
     `city` VARCHAR(45) NULL,

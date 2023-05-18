@@ -16,11 +16,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -41,6 +43,9 @@ public class OrderDetails implements BaseEntity<Integer>, Serializable {
     private int bubbleCount;
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
+    @CreationTimestamp
+    @Column(name="create_date")
+    private LocalDate createDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Embedded
