@@ -6,7 +6,18 @@ spring:
     password: root
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
+    properties:
+      hibernate:
+        hbm2ddl.extra_physical_table_types: PARTITIONED TABLE
+        format_sql: true
+        default_schema: bubbleshop
+        jdbc:
+          time_zone: UTC
+  liquibase:
+    enabled: true

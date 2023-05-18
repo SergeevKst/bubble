@@ -14,10 +14,11 @@ CREATE TABLE IF NOT EXISTS bubbleshop.users
 (
     `id`          INT         NOT NULL AUTO_INCREMENT,
     `phoneNumber` VARCHAR(45) NOT NULL,
-    `login`       VARCHAR(45) NOT NULL,
+    `login`       VARCHAR(45) UNIQUE NOT NULL,
     `first_Name`   VARCHAR(45) NOT NULL,
     `last_Name`    VARCHAR(45) NOT NULL,
     `role`        VARCHAR(45) NOT NULL,
+    `password`      VARCHAR(350) NOT NULL ,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC) VISIBLE
 );
@@ -27,7 +28,6 @@ CREATE TABLE IF NOT EXISTS bubbleshop.users
 CREATE TABLE IF NOT EXISTS bubbleshop.order
 (
     `id`           INT  NOT NULL AUTO_INCREMENT,
-    `deliveryDate` DATE NULL DEFAULT NULL,
     `user_id`      INT  NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_order_user_idx` (`user_id` ASC) VISIBLE,
@@ -40,15 +40,19 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order
 -- rollback DROP TABLE `order` CASCADE;
 
 -- changeset paramonov:4
-CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
+CREATE TABLE IF NOT EXISTS bubbleshop.order_details
 (
-    `idorder_details` INT         NOT NULL AUTO_INCREMENT,
-    `cost`            INT         NOT NULL,
+    `id` INT         NOT NULL AUTO_INCREMENT,
+    `cost`            DECIMAL         NOT NULL,
     `bubble_count`    INT         NOT NULL,
+    `delivery_date` DATE NULL DEFAULT NULL,
     `status`          VARCHAR(45) NULL DEFAULT NULL,
-    `adress`          VARCHAR(45) NULL DEFAULT NULL,
+    `city`          VARCHAR(45) NULL DEFAULT NULL,
+    `street`          VARCHAR(45) NULL DEFAULT NULL,
+    `house_number`          INT NULL DEFAULT NULL,
+    `apartment_number`          INT NULL DEFAULT NULL,
     `order_id`        INT         NOT NULL,
-    PRIMARY KEY (`idorder_details`),
+    PRIMARY KEY (`id`),
     INDEX `fk_orderdetails_order1_idx` (`order_id` ASC) VISIBLE,
     CONSTRAINT `fk_orderdetails_order1`
         FOREIGN KEY (`order_id`)
@@ -59,12 +63,12 @@ CREATE TABLE IF NOT EXISTS bubbleshop.orderdetails
 -- rollback DROP TABLE `orderdetails` CASCADE;
 
 -- changeset paramonov:5
-CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
+CREATE TABLE IF NOT EXISTS bubbleshop.order_users
 (
     `order_id`    INT NOT NULL,
-    `employee_id` INT NOT NULL,
-    PRIMARY KEY (`order_id`, `employee_id`),
-    INDEX `fk_order_has_employee_employee1_idx` (`employee_id` ASC) VISIBLE,
+    users_id INT NOT NULL,
+    PRIMARY KEY (`order_id`, users_id),
+    INDEX `fk_order_has_employee_employee1_idx` (users_id ASC) VISIBLE,
     INDEX `fk_order_has_employee_order1_idx` (`order_id` ASC) VISIBLE,
     CONSTRAINT `fk_order_has_employee_order1`
         FOREIGN KEY (`order_id`)
@@ -72,7 +76,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_has_employee
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_order_has_employee_employee1`
-        FOREIGN KEY (`employee_id`)
+        FOREIGN KEY (users_id)
             REFERENCES bubbleshop.employee (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
@@ -84,7 +88,8 @@ CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
 (
     `id`              INT         NOT NULL,
     `material_name`   VARCHAR(45) NULL,
-    `amaterial_count` INT         NULL,
+    `material_count` INT         NULL,
+    `balance`       DECIMAL NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
-)
+);
 -- rollback DROP TABLE `storehouse` CASCADE;

@@ -1,4 +1,4 @@
-package com.generation.application.role;
+package com.generation.application.model;
 
 public enum Role {
     USER,

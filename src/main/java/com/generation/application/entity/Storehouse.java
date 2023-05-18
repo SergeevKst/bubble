@@ -1,9 +1,7 @@
-package com.generation.application.model;
+package com.generation.application.entity;
 
-import com.generation.application.role.Role;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,25 +14,25 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "storehouse")
+public class Storehouse implements BaseEntity<Integer>, Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String phoneNumber;
-    private String login;
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    private String firstName;
-    private String lastName;
-
+    private Integer id;
+    @Column(name = "material_count")
+    private int materialCount;
+    @Column(name = "material_name")
+    private String materialName;
+    private BigDecimal balance;
 }
