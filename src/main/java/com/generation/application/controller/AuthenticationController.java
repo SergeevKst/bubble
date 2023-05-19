@@ -24,6 +24,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
+
     @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping("/auth")
     public ResponseEntity<AuthenticationResponseDto> authentication(@RequestBody AuthenticationRequestDto request) {
