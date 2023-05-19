@@ -21,6 +21,9 @@
 # 2.4.  If you want to observe your own role you should grab your personal token and check your role with the next URL
 <img src="https://github.com/SergeevKst/bubble/blob/feature/readme/assets/roles.PNG?raw=true" width="900" result>
 
+# 2.5 If you want to send requests as an authorized user using swagger
+<img src="https://github.com/SergeevKst/bubble/blob/feature/readme/assets/swaggerHomePage.PNG?raw=true" width="900" result>
+
 ## Technologies
 * Java - version 17
 * Spring Boot - version 3.0.6
