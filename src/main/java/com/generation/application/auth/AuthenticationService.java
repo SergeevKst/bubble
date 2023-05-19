@@ -20,7 +20,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponseDto register(RegisterRequestDto request) {
         var user = User.builder()
                 .firstName(request.firstName())
                 .lastName(request.lastName())
@@ -31,10 +31,10 @@ public class AuthenticationService {
                 .build();
         userService.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return new AuthenticationResponse(jwtToken);
+        return new AuthenticationResponseDto(jwtToken);
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.login(),
@@ -43,7 +43,7 @@ public class AuthenticationService {
         );
         var user = userService.findByLogin(request.login());
         var jwtToken = jwtService.generateToken(user);
-        return new AuthenticationResponse(jwtToken);
+        return new AuthenticationResponseDto(jwtToken);
     }
 
     public String checkRole(@NonNull HttpServletRequest request) {
