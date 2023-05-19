@@ -1,5 +1,6 @@
 package com.generation.application.controller;
 
+import com.generation.application.auth.AuthenticationRequest;
 import com.generation.application.auth.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthenticationController {
 
     @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping("/auth")
-    public ResponseEntity<AuthenticationResponse> authentication(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 

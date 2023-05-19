@@ -22,32 +22,28 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .login(request.getLogin())
-                .phoneNumber(request.getPhoneNumber())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .firstName(request.firstName())
+                .lastName(request.lastName())
+                .login(request.login())
+                .phoneNumber(request.phoneNumber())
+                .password(passwordEncoder.encode(request.password()))
                 .role(Role.USER)
                 .build();
         userService.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        return new AuthenticationResponse(jwtToken);
     }
 
-    public AuthenticationResponse authenticate(RegisterRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getLogin(),
-                        request.getPassword()
+                        request.login(),
+                        request.password()
                 )
         );
-        var user = userService.findByLogin(request.getLogin());
+        var user = userService.findByLogin(request.login());
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        return new AuthenticationResponse(jwtToken);
     }
 
     public String checkRole(@NonNull HttpServletRequest request) {

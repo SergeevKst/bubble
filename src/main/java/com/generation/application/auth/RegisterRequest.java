@@ -5,14 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class RegisterRequest {
-    private String login;
-    private String phoneNumber;
-    private String firstName;
-    private String lastName;
-    private String password;
+
+public record RegisterRequest(String login,
+                              String phoneNumber,
+                              String firstName,
+                              String lastName,
+                              String password
+                              ) {
+
 }
