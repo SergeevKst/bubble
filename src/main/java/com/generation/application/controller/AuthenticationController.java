@@ -1,6 +1,7 @@
 package com.generation.application.controller;
 
 import com.generation.application.auth.AuthenticationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import com.generation.application.auth.AuthenticationResponse;
@@ -22,6 +23,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping("/auth")
     public ResponseEntity<AuthenticationResponse> authentication(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
