@@ -1,6 +1,7 @@
 package com.generation.application.dto;
 
 public record StorehouseReadDto(int id,
-                                String materialName) {
+                                String materialName,
+                                int materialCount) {
 
 }
