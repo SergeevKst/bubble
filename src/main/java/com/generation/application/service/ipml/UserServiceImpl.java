@@ -1,5 +1,7 @@
 package com.generation.application.service.ipml;
 
+import com.generation.application.dto.UserReadDto;
+import com.generation.application.mapper.Mapper;
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.UserService;
 import com.generation.application.entity.User;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final Mapper<User,UserReadDto> userReadMapper;
     @Override
     @Transactional
     public User findByLogin(String login) {
@@ -22,5 +25,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public UserReadDto findByIdWithOrder(Integer id) {
+        User user = userRepository.findByIdWithOrder(id);
+        return userReadMapper.map(user);
     }
 }

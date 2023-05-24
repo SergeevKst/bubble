@@ -5,12 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +25,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order implements BaseEntity<Integer>, Serializable {
 
     @Serial
@@ -39,7 +35,6 @@ public class Order implements BaseEntity<Integer>, Serializable {
     private Integer id;
     @ManyToMany(mappedBy = "orders",cascade = CascadeType.PERSIST)
     private Set<User> users = new HashSet<>();
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "order")
     private OrderDetails orderDetails;
 }
