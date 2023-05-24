@@ -1,9 +1,11 @@
 package com.generation.application.dto;
 
-import java.util.List;
+import com.generation.application.model.Role;
+
+import java.util.Map;
 
 public record OrderReadDto(int id,
-                           List<UserReadDto> users,
+                           Map<String, Role> userLogins,
                            OrderDetailsReadDto orderDetails) {
 
 }
