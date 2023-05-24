@@ -34,5 +34,6 @@ public class Storehouse implements BaseEntity<Integer>, Serializable {
     private int materialCount;
     @Column(name = "material_name")
     private String materialName;
+    @Column
     private BigDecimal balance;
 }

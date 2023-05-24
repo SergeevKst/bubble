@@ -31,7 +31,9 @@ public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String phoneNumber;
+    @Column
     private String login;
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -39,6 +41,7 @@ public class User implements Serializable, UserDetails {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column
     private String password;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

@@ -1,28 +1,14 @@
 package com.generation.application.entity;
 
 import com.generation.application.model.OrderStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -50,7 +36,7 @@ public class OrderDetails implements BaseEntity<Integer>, Serializable {
     private OrderStatus status;
     @Embedded
     private Address address;
-    @MapsId
-    @OneToOne
+    @OneToOne()
+    @PrimaryKeyJoinColumn
     private Order order;
 }

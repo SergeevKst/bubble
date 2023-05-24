@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final Mapper<User,UserReadDto> UserReadMapper;
+    private final Mapper<User,UserReadDto> userReadMapper;
     @Override
     @Transactional
     public User findByLogin(String login) {
@@ -28,9 +28,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserReadDto findByIdWithOrder(Integer id) {
         User user = userRepository.findByIdWithOrder(id);
-        UserReadDto userReadDto = UserReadMapper.map(user);
-        return userReadDto;
+        return userReadMapper.map(user);
     }
 }
