@@ -1,5 +1,6 @@
 package com.generation.application.service.ipml;
 
+import com.generation.application.dto.UserCreateUpdateDto;
 import com.generation.application.dto.UserReadDto;
 import com.generation.application.mapper.Mapper;
 import com.generation.application.repository.UserRepository;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Mapper<User,UserReadDto> userReadMapper;
+    private final Mapper<UserCreateUpdateDto,User> userCreateUpdateDtoUserMapper;
     @Override
     @Transactional
     public User findByLogin(String login) {

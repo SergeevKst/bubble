@@ -1,5 +1,6 @@
 package com.generation.application.service.ipml;
 
+import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
 import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
@@ -19,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final Mapper<Order,OrderReadDto> orderReadMapper;
+    private final Mapper<OrderCreateUpdateDto,Order> mapperOrderDtoToOrder;
     @Override
     @Transactional
     public OrderReadDto findByIdWithUser(Integer id) {
@@ -47,6 +49,12 @@ public class OrderServiceImpl implements OrderService {
             orderReadDtoSet.add(orderReadMapper.map(order));
         }
         return orderReadDtoSet;
+    }
+
+    @Override
+    @Transactional
+    public void saveOrUpdate(OrderCreateUpdateDto orderDto) {
+        orderRepository.save(mapperOrderDtoToOrder.map(orderDto));
     }
 
 

@@ -1,5 +1,6 @@
 package com.generation.application.service;
 
+import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
 import com.generation.application.entity.Address;
 
@@ -12,5 +13,7 @@ public interface OrderService {
     Set<OrderReadDto> findByUserId(Integer id);
 
     Set<OrderReadDto> findOrderByAddress(Address address);
+
+    void saveOrUpdate(OrderCreateUpdateDto orderDto);
 
 }
