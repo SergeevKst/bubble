@@ -14,6 +14,6 @@ public interface OrderService {
 
     Set<OrderReadDto> findOrderByAddress(Address address);
 
-    void saveOrUpdate(OrderCreateUpdateDto orderDto);
+    void saveOrUpdate(OrderCreateUpdateDto orderCreateUpdateDto);
 
 }

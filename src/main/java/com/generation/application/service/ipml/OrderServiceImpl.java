@@ -21,6 +21,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final Mapper<Order,OrderReadDto> orderReadMapper;
     private final Mapper<OrderCreateUpdateDto,Order> mapperOrderDtoToOrder;
+
     @Override
     @Transactional
     public OrderReadDto findByIdWithUser(Integer id) {
@@ -53,8 +54,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void saveOrUpdate(OrderCreateUpdateDto orderDto) {
-        orderRepository.save(mapperOrderDtoToOrder.map(orderDto));
+    public void saveOrUpdate(OrderCreateUpdateDto orderCreateUpdateDto) {
+        Order order=mapperOrderDtoToOrder.map(orderCreateUpdateDto);
+        orderRepository.save(order);
     }
 
 

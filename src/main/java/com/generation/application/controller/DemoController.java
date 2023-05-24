@@ -2,10 +2,7 @@ package com.generation.application.controller;
 
 import com.generation.application.auth.AuthenticationService;
 import com.generation.application.dto.OrderCreateUpdateDto;
-import com.generation.application.dto.UserCreateUpdateDto;
-import com.generation.application.entity.Order;
 import com.generation.application.service.OrderService;
-import com.generation.application.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +24,8 @@ public class DemoController {
         return ResponseEntity.ok(authenticationService.checkRole(request));
     }
 
-    @GetMapping("/userDtoToUser")
-    public void userDtoToUser(@NonNull OrderCreateUpdateDto orderCreateUpdateDto){
-
-        String s="g";
+    @PostMapping("/saveOrder")
+    public void userDtoToUser(@RequestBody OrderCreateUpdateDto orderCreateUpdateDto){
         orderServiceImpl.saveOrUpdate(orderCreateUpdateDto);
     }
 }
