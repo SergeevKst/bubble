@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_details
     `create_date`      DATE           NULL DEFAULT NULL,
     `delivery_date`    DATE           NULL DEFAULT NULL,
     `house_number`     INT            NULL DEFAULT NULL,
-    `id`               INT            NOT NULL,
+    `id`               INT            NOT NULL AUTO_INCREMENT,
     `city`             VARCHAR(255)   NULL DEFAULT NULL,
     `status`           VARCHAR(255)   NULL DEFAULT NULL,
     `street`           VARCHAR(255)   NULL DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `bubbleshop`.`user_order`
 -- changeset sokolin:5
 CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
 (
-    `id`             INT            NOT NULL,
+    `id`             INT            NOT NULL AUTO_INCREMENT,
     `material_count` INT            NULL,
     `material_name`  VARCHAR(45)    NULL,
     `balance`        DECIMAL(10, 2) NULL,

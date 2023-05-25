@@ -1,6 +1,6 @@
 package com.generation.application.dto;
 
 
-public record OrderCreateUpdateDto(OrderDetailsCreateUpdateDto orderDetails) {
+public record OrderCreateUpdateDto(int id,OrderDetailsCreateUpdateDto orderDetails) {
 
 }

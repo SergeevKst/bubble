@@ -15,6 +15,7 @@ public class OrderCreateUpdateMapper implements Mapper<OrderCreateUpdateDto, Ord
     @Override
     public Order map(OrderCreateUpdateDto object) {
         return Order.builder()
+                .id(object.id())
                 .orderDetails(
                         orderDetailsCreateUpdateMapper.map(object.orderDetails())
                 )
