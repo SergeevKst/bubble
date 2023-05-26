@@ -23,13 +23,14 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    private final Mapper<Order,OrderReadDto> orderReadMapper;
-    private final Mapper<OrderCreateUpdateDto,Order> orderFromDtoToEntityMapper;
+    private final Mapper<Order, OrderReadDto> orderReadMapper;
+    private final Mapper<OrderCreateUpdateDto, Order> orderFromDtoToEntityMapper;
     private final Mapper<User, UserReadDto> userReadDtoMapper;
+
     @Override
     @Transactional
     public OrderReadDto findByIdWithUser(Integer id) {
-        Order order=orderRepository.findByIdWithUser(id);
+        Order order = orderRepository.findByIdWithUser(id);
         return orderReadMapper.map(order);
     }
 
@@ -38,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
     public Set<OrderReadDto> findByUserId(Integer id) {
         Set<Order> orderSet = orderRepository.findOrderByUserId(id);
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
-        for(Order order:orderSet){
+        for (Order order : orderSet) {
             orderReadDtoSet.add(orderReadMapper.map(order));
         }
         return orderReadDtoSet;
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         Set<Order> orderSet = orderRepository.findOrderByAddress(address.getCity(), address.getStreet(), address.getHouseNumber(),
                 address.getApartmentNumber());
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
-        for(Order order:orderSet){
+        for (Order order : orderSet) {
             orderReadDtoSet.add(orderReadMapper.map(order));
         }
         return orderReadDtoSet;
@@ -67,9 +68,9 @@ public class OrderServiceImpl implements OrderService {
     public UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
         Order order = orderFromDtoToEntityMapper.map(orderCreateUpdateDto);
         User user = userRepository.findByLogin(login).orElse(null);
-        if(user.getOrders()!=null) {
+        if (user.getOrders() != null) {
             user.getOrders().add(order);
-        }else{
+        } else {
             Set<Order> orderSet = new HashSet<>();
             orderSet.add(order);
             user.setOrders(orderSet);

@@ -16,20 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final Mapper<User,UserReadDto> userReadMapper;
+    private final Mapper<User, UserReadDto> userReadMapper;
     private final OrderRepository orderRepository;
 
     @Override
     @Transactional
     public User findByLogin(String login) {
         return userRepository.findByLogin(login)
-                .orElseThrow(()->new UsernameNotFoundException("Login not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Login not found"));
     }
 
     @Override
     public UserReadDto findUserByLogin(String login) {
         return userReadMapper.map(userRepository.findByLogin(login)
-                .orElseThrow(()->new UsernameNotFoundException("Login not found")));
+                .orElseThrow(() -> new UsernameNotFoundException("Login not found")));
     }
 
     @Override
@@ -50,10 +50,10 @@ public class UserServiceImpl implements UserService {
     public UserReadDto setOrderToEmployee(String login, Integer idOrder) {
         User user = userRepository.findByLogin(login).orElse(null);
         Order order = orderRepository.findById(idOrder).orElse(null);
-        if(user!=null&&order!=null){
+        if (user != null && order != null) {
             user.getOrders().add(order);
 
-        }else{
+        } else {
             throw new UsernameNotFoundException("Uncorrected login or id order");
         }
         return userReadMapper.map(userRepository.save(user));

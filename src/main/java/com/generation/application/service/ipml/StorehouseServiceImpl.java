@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StorehouseServiceImpl implements StorehouseService {
 
     private final StorehouseRepository storehouseRepository;
+
     @Override
     @Transactional
     public int findMaterialCountById(String name) {
