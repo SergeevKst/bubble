@@ -11,6 +11,7 @@ import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
         Order order = orderFromDtoToEntityMapper.map(orderCreateUpdateDto);
-        User user = userRepository.findByLogin(login).orElse(null);
+        User user = userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (user.getOrders() != null) {
             user.getOrders().add(order);
         } else {
