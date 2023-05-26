@@ -4,8 +4,15 @@ import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
 import com.generation.application.mapper.Mapper;
+import lombok.val;
+import org.apache.el.lang.FunctionMapperImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -19,7 +26,7 @@ public class UserReadMapper implements Mapper<User, UserReadDto> {
                 entity.getRole().toString(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getOrders()
+                Optional.ofNullable(entity.getOrders()).orElseGet(HashSet::new)
                         .stream()
                         .map(Order::getId)
                         .collect(Collectors.toSet()));
