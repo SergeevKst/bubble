@@ -5,8 +5,8 @@ import com.generation.application.entity.User;
 public interface UserService {
     User findByLogin(String login);
     UserReadDto findUserByLogin(String login);
-    void save(User user);
+    UserReadDto save(User user);
     UserReadDto findByIdWithOrder(Integer id);
-    void setOrderToEmployee(String login, Integer idOrder);
-    void removeOrderFromEmployee(String login, Integer idOrder);
+    UserReadDto setOrderToEmployee(String login, Integer idOrder);
+    UserReadDto removeOrderFromEmployee(String login, Integer idOrder);
 }

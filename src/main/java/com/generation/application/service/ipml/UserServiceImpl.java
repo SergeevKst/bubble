@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void save(User user) {
-        userRepository.save(user);
+    public UserReadDto save(User user) {
+        return userReadMapper.map(userRepository.save(user));
     }
 
     @Override
@@ -47,21 +47,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void setOrderToEmployee(String login, Integer idOrder) {
+    public UserReadDto setOrderToEmployee(String login, Integer idOrder) {
         User user = userRepository.findByLogin(login).orElse(null);
         Order order = orderRepository.findById(idOrder).orElse(null);
         if(user!=null&&order!=null){
             user.getOrders().add(order);
-            userRepository.save(user);
-        }
 
+        }else{
+            throw new UsernameNotFoundException("Uncorrected login or id order");
+        }
+        return userReadMapper.map(userRepository.save(user));
     }
 
     @Override
-    public void removeOrderFromEmployee(String login, Integer idOrder) {
+    @Transactional
+    public UserReadDto removeOrderFromEmployee(String login, Integer idOrder) {
         User user = userRepository.findByLogin(login).orElse(null);
         Order order = orderRepository.findById(idOrder).orElse(null);
         user.getOrders().remove(order);
-        userRepository.save(user);
+        return userReadMapper.map(userRepository.save(user));
     }
 }

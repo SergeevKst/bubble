@@ -2,6 +2,7 @@ package com.generation.application.service.ipml;
 
 import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
+import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
@@ -24,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepository;
     private final Mapper<Order,OrderReadDto> orderReadMapper;
     private final Mapper<OrderCreateUpdateDto,Order> orderFromDtoToEntityMapper;
+    private final Mapper<User, UserReadDto> userReadDtoMapper;
     @Override
     @Transactional
     public OrderReadDto findByIdWithUser(Integer id) {
@@ -56,13 +58,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order findById(Integer id) {
-        return orderRepository.findById(id).orElse(null);
+    public OrderReadDto findById(Integer id) {
+        return orderReadMapper.map(orderRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional
-    public void saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
+    public UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
         Order order = orderFromDtoToEntityMapper.map(orderCreateUpdateDto);
         User user = userRepository.findByLogin(login).orElse(null);
         if(user.getOrders()!=null) {
@@ -72,13 +74,13 @@ public class OrderServiceImpl implements OrderService {
             orderSet.add(order);
             user.setOrders(orderSet);
         }
-        userRepository.save(user);
+        return userReadDtoMapper.map(userRepository.save(user));
     }
 
     @Override
     @Transactional
-    public void update(OrderCreateUpdateDto orderCreateUpdateDto) {
-        orderRepository.save(orderFromDtoToEntityMapper.map(orderCreateUpdateDto));
+    public OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto) {
+        return orderReadMapper.map(orderRepository.save(orderFromDtoToEntityMapper.map(orderCreateUpdateDto)));
     }
 
 }
