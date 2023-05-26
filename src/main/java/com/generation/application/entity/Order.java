@@ -35,6 +35,6 @@ public class Order implements BaseEntity<Integer>, Serializable {
     private Integer id;
     @ManyToMany(mappedBy = "orders",cascade = CascadeType.PERSIST)
     private Set<User> users = new HashSet<>();
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private OrderDetails orderDetails;
 }

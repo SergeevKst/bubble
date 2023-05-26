@@ -19,13 +19,13 @@ public class OrderDetailsCreateUpdateMapper implements Mapper<OrderDetailsCreate
     @Override
     public OrderDetails map(OrderDetailsCreateUpdateDto object) {
         return OrderDetails.builder()
+                .id(object.id())
                 .cost(object.cost())
                 .bubbleCount(object.bubbleCount())
                 .deliveryDate(object.deliveryDate())
                 .createDate(LocalDate.now())
                 .status(OrderStatus.NEW)
                 .address(object.address())
-                .order(orderRepository.findById(object.orderId()).get())
                 .build();
     }
 
