@@ -76,6 +76,20 @@ public class OrderServiceImplTest {
                 .phoneNumber("test")
                 .build();
 
+        orderReadDto = new OrderReadDto(
+                1,
+                Map.of(testUser.getLogin(),testUser.getRole()),
+                new OrderDetailsReadDto(
+                        1,
+                        new BigDecimal(100),
+                        100,
+                        System.currentTimeMillis(),
+                        System.currentTimeMillis()+1,
+                        OrderStatus.NEW,
+                        Address.builder().build(),
+
+
+                ));
 
         testOrder = Order.builder()
                 .id(1)
@@ -220,5 +234,6 @@ public class OrderServiceImplTest {
         orderReadDto=null;
         testOrder=null;
         testUser = null;
+
     }
 }

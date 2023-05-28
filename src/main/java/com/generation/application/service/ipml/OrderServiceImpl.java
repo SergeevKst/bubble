@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderReadDto findById(Integer id) {
-        return orderMapper.toDto(orderRepository.findById(id).orElse(null));
+        return orderReadMapper.map(orderRepository.findById(id).orElse(null));
     }
 
     @Override
