@@ -47,12 +47,15 @@ public class AuthenticationService {
     }
 
     public String checkRole(@NonNull HttpServletRequest request) {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String userLogin;
-        jwt = authHeader.substring(7);
-        userLogin = jwtService.extractLogin(jwt);
+        final String userLogin = getUserLogin(request);
         var user = userService.findByLogin(userLogin);
         return user.getRole().name();
+    }
+
+    public String getUserLogin(@NonNull HttpServletRequest request){
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        jwt = authHeader.substring(7);
+        return jwtService.extractLogin(jwt);
     }
 }

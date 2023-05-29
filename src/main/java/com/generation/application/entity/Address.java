@@ -23,7 +23,9 @@ public class Address implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+    @Column
     private String city;
+    @Column
     private String street;
     @Column(name = "house_number")
     private int houseNumber;

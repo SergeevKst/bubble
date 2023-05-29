@@ -4,3 +4,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/db.changeSetAddUser.sql
+
+  - include:
+      file: db/changelog/db.changeSetAddOrderAndOrderDetails.sql
