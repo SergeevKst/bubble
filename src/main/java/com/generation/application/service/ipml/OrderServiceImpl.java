@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -41,6 +43,17 @@ public class OrderServiceImpl implements OrderService {
         Set<Order> orderSet = orderRepository.findOrderByUserId(id);
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
         for (Order order : orderSet) {
+            orderReadDtoSet.add(orderReadMapper.map(order));
+        }
+        return orderReadDtoSet;
+    }
+
+    @Override
+    @Transactional
+    public List<OrderReadDto> findAllOrders() {
+        List<Order> orderSet = orderRepository.findAll();
+        List<OrderReadDto> orderReadDtoSet = new LinkedList<>();
+        for(Order order : orderSet){
             orderReadDtoSet.add(orderReadMapper.map(order));
         }
         return orderReadDtoSet;
