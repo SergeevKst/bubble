@@ -2,13 +2,17 @@ package com.generation.application.controller;
 
 import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
+import com.generation.application.model.Role;
 import com.generation.application.service.OrderService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +27,9 @@ public class OrdersController {
     @Autowired
     OrderService orderService;
 
+    @PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderReadDto>> getOrders(){
+    public ResponseEntity<List<OrderReadDto>> getAllOrders(){
         return ResponseEntity.ok(orderService.findAllOrders());
     }
 
