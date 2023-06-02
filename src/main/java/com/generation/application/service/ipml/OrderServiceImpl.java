@@ -6,7 +6,8 @@ import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
-import com.generation.application.mapper.Mapper;
+import com.generation.application.mapstructMapper.OrderMapper;
+import com.generation.application.mapstructMapper.UserMapper;
 import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.OrderService;
@@ -26,15 +27,14 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    private final Mapper<Order, OrderReadDto> orderReadMapper;
-    private final Mapper<OrderCreateUpdateDto, Order> orderFromDtoToEntityMapper;
-    private final Mapper<User, UserReadDto> userReadDtoMapper;
+    private final OrderMapper orderMapper;
+    private final UserMapper userMapper;
 
     @Override
     @Transactional
     public OrderReadDto findByIdWithUser(Integer id) {
         Order order = orderRepository.findByIdWithUser(id);
-        return orderReadMapper.map(order);
+        return orderMapper.toDto(order);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         Set<Order> orderSet = orderRepository.findOrderByUserId(id);
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
         for (Order order : orderSet) {
-            orderReadDtoSet.add(orderReadMapper.map(order));
+            orderReadDtoSet.add(orderMapper.toDto(order));
         }
         return orderReadDtoSet;
     }
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orderSet = orderRepository.findAll();
         List<OrderReadDto> orderReadDtoSet = new LinkedList<>();
         for(Order order : orderSet){
-            orderReadDtoSet.add(orderReadMapper.map(order));
+            orderReadDtoSet.add(orderMapper.toDto(order));
         }
         return orderReadDtoSet;
     }
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
                 address.getApartmentNumber());
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
         for (Order order : orderSet) {
-            orderReadDtoSet.add(orderReadMapper.map(order));
+            orderReadDtoSet.add(orderMapper.toDto(order));
         }
         return orderReadDtoSet;
     }
@@ -74,13 +74,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderReadDto findById(Integer id) {
-        return orderReadMapper.map(orderRepository.findById(id).orElse(null));
+        return orderMapper.toDto(orderRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional
     public UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
-        Order order = orderFromDtoToEntityMapper.map(orderCreateUpdateDto);
+        Order order = orderMapper.toEntity(orderCreateUpdateDto);
         User user = userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (user.getOrders() != null) {
             user.getOrders().add(order);
@@ -89,13 +89,12 @@ public class OrderServiceImpl implements OrderService {
             orderSet.add(order);
             user.setOrders(orderSet);
         }
-        return userReadDtoMapper.map(userRepository.save(user));
+        return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
     @Transactional
     public OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto) {
-        return orderReadMapper.map(orderRepository.save(orderFromDtoToEntityMapper.map(orderCreateUpdateDto)));
+        return orderMapper.toDto(orderRepository.save(orderMapper.toEntity(orderCreateUpdateDto)));
     }
-
 }

@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface StoreHouseMapper {
 
-    StorehouseReadDto toDto(Order entity);
+    StorehouseReadDto toDto(Storehouse entity);
 
     Storehouse toEntity(StorehouseCreateUpdateDto dto);
 }

@@ -1,11 +1,7 @@
 package com.generation.application.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 @Entity
 @Table(name = "orders")
 public class Order implements BaseEntity<Integer>, Serializable {
@@ -27,15 +24,9 @@ public class Order implements BaseEntity<Integer>, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToMany(mappedBy = "orders",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<User> users = new HashSet<>();
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private OrderDetails orderDetails;
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderDetails=" + orderDetails +
-                '}';
-    }
 }

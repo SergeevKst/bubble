@@ -5,6 +5,7 @@ import com.generation.application.dto.StorehouseReadDto;
 import com.generation.application.entity.Storehouse;
 import com.generation.application.mapper.StorehouseCreateUpdateMapper;
 import com.generation.application.mapper.StorehouseReadMapper;
+import com.generation.application.mapstructMapper.StoreHouseMapper;
 import com.generation.application.repository.StorehouseRepository;
 import com.generation.application.service.StorehouseService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,7 @@ import java.util.Set;
 public class StorehouseServiceImpl implements StorehouseService {
 
     private final StorehouseRepository storehouseRepository;
-    private final StorehouseReadMapper storehouseReadMapper;
-    private final StorehouseCreateUpdateMapper storehouseCreateUpdateMapper;
+    private final StoreHouseMapper storeHouseMapper;
 
     @Override
     @Transactional
@@ -33,17 +33,17 @@ public class StorehouseServiceImpl implements StorehouseService {
     @Override
     public Set<StorehouseReadDto> findAllItem (){
         List<Storehouse> storehouses = storehouseRepository.findAll();
-        Set<StorehouseReadDto> storehouseReadDtos = new HashSet<>();
+        Set<StorehouseReadDto> storehouseReadDto = new HashSet<>();
         for(Storehouse storehouse:storehouses){
-            storehouseReadDtos.add(storehouseReadMapper.map(storehouse));
+            storehouseReadDto.add(storeHouseMapper.toDto(storehouse));
         }
-        return storehouseReadDtos;
+        return storehouseReadDto;
     }
 
     @Override
     public StorehouseReadDto add(StorehouseCreateUpdateDto item) {
-        return storehouseReadMapper.map(
+        return storeHouseMapper.toDto(
                 storehouseRepository.save(
-                        storehouseCreateUpdateMapper.map(item)));
+                        storeHouseMapper.toEntity(item)));
     }
 }
