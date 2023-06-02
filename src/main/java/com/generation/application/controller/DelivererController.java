@@ -28,6 +28,7 @@ public class DelivererController {
 
 
 
+    //changeStatus(idOrder, OrderStatus - статус на который меняем текущий статус)
     @PostMapping("/ordersInProgress/{id}")
     public ResponseEntity takeOrder(@PathVariable Integer id){
         return ResponseEntity.ok(orderService.changeStatusOrderAsignetDeliverer(id));
