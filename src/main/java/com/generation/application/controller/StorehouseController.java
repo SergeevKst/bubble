@@ -21,7 +21,7 @@ public class StorehouseController {
     private final StorehouseService storehouseService;
 
 
-    @GetMapping("/storehouse")
+    @GetMapping
     public ResponseEntity<Set<StorehouseReadDto>> getAllRemainderByStorehouse(){
         return ResponseEntity.ok(storehouseService.findAllItem());
     }

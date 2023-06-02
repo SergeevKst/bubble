@@ -17,30 +17,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/role")
+@RequestMapping("/api/v1/employee")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
 @PreAuthorize("hasAuthority('OWNER')")
-public class RoleController {
+public class EmployeeController {
 
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
-    //TODO: add method findByAllEmployee
-    @GetMapping("/employee")
+    @GetMapping()
     public ResponseEntity<Set<UserReadDto>> getAllEmployee(){
         return ResponseEntity.ok(userService.findAllEmployee());
     }
 
 
-    @PostMapping("/createUser")
+    @PostMapping("/createEmployee")
     public ResponseEntity<UserReadDto> createUserWithRole(@RequestBody UserCreateUpdateDto user){
         return ResponseEntity.ok(authenticationService.registrationEmployee(user));
     }
-
-    //TODO: Delete user by login
-//    @DeleteMapping("/deleteUser")
-//    public ResponseEntity deleteUser(@RequestBody String login){
-//        return ResponseEntity.ok(userService.delete(login));
-//    }
 }

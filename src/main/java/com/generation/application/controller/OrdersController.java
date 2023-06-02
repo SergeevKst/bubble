@@ -39,7 +39,6 @@ public class OrdersController {
         return ResponseEntity.ok(orderService.saveOrder(createUpdateDto, login));
     }
 
-    //TODO: update by id
     @PostMapping("/update")
     public ResponseEntity<OrderReadDto> update(@RequestBody OrderCreateUpdateDto createUpdateDto){
         return ResponseEntity.ok(orderService.update(createUpdateDto));
@@ -49,11 +48,4 @@ public class OrdersController {
     public ResponseEntity<Set<OrderReadDto>> getOrdersByUserId(@PathVariable Integer id){
         return ResponseEntity.ok(orderService.findByUserId(id));
     }
-
-    //TODO: add method deleteOrderById
-//    @DeleteMapping("/orders/{id}")
-//    public ResponseEntity deleteOrder(@PathVariable Integer id){
-//        return ResponseEntity.ok(orderService.deleteOrderById);
-//    }
-
 }
