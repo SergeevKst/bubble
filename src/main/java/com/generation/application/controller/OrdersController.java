@@ -2,6 +2,7 @@ package com.generation.application.controller;
 
 import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
+import com.generation.application.dto.UserReadDto;
 import com.generation.application.model.Role;
 import com.generation.application.service.OrderService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -19,28 +20,28 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/order")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
 public class OrdersController {
 
-    @Autowired
-    OrderService orderService;
+
+    private final OrderService orderService;
 
     @PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
-    @GetMapping("/orders")
+    @GetMapping("/getAll")
     public ResponseEntity<List<OrderReadDto>> getAllOrders(){
         return ResponseEntity.ok(orderService.findAllOrders());
     }
 
-    @PostMapping("/orders")
-    public ResponseEntity createOrder(@RequestBody OrderCreateUpdateDto createUpdateDto,@RequestBody String login){
+    @PostMapping("/create")
+    public ResponseEntity<UserReadDto> createOrder(@RequestBody OrderCreateUpdateDto createUpdateDto, @RequestBody String login){
         return ResponseEntity.ok(orderService.saveOrder(createUpdateDto, login));
     }
 
     //TODO: update by id
-    @PostMapping("/order")
-    public ResponseEntity update(@RequestBody OrderCreateUpdateDto createUpdateDto){
+    @PostMapping("/update")
+    public ResponseEntity<OrderReadDto> update(@RequestBody OrderCreateUpdateDto createUpdateDto){
         return ResponseEntity.ok(orderService.update(createUpdateDto));
     }
 

@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/role")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
 @PreAuthorize("hasAuthority('OWNER')")
 public class RoleController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     //TODO: add method findByAllEmployee
 //    @GetMapping("/employee")
@@ -32,7 +31,7 @@ public class RoleController {
 
     //Becrypted password for User(Employee)
     @PostMapping("/createUser")
-    public ResponseEntity createUserWithRole(@RequestBody User user){
+    public ResponseEntity<String> createUserWithRole(@RequestBody User user){
         userService.save(user);
         return ResponseEntity.ok("User created");
     }

@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/storehouse")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
 public class StorehouseController {
 
-    @Autowired
-    StorehouseService storehouseService;
+    private final StorehouseService storehouseService;
 
 
     //TODO: add method findAllMaterials
@@ -26,8 +25,8 @@ public class StorehouseController {
 //        return ResponseEntity.ok(storehouseService.findAllMaterials);
 //    }
 
-    @GetMapping("/storehouse/{name}")
-    public ResponseEntity getMaterialCountByName(@PathVariable String name){
+    @GetMapping("/materialCountByName/{name}")
+    public ResponseEntity<Integer> getMaterialCountByName(@PathVariable String name){
         return ResponseEntity.ok(storehouseService.findMaterialCountById(name));
     }
 }
