@@ -1,8 +1,11 @@
 package com.generation.application.controller;
 
 
+import com.generation.application.auth.AuthenticationService;
+import com.generation.application.dto.UserCreateUpdateDto;
 import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.User;
+import com.generation.application.repository.UserRepository;
 import com.generation.application.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -21,19 +24,18 @@ import java.util.Set;
 public class RoleController {
 
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     //TODO: add method findByAllEmployee
-//    @GetMapping("/employee")
-//    public ResponseEntity<Set<UserReadDto>> getAllEmployee(){
-//        return ResponseEntity.ok(userService.findByAllEmployee);
-//    }
+    @GetMapping("/employee")
+    public ResponseEntity<Set<UserReadDto>> getAllEmployee(){
+        return ResponseEntity.ok(userService.findAllEmployee());
+    }
 
 
-    //Becrypted password for User(Employee)
     @PostMapping("/createUser")
-    public ResponseEntity<String> createUserWithRole(@RequestBody User user){
-        userService.save(user);
-        return ResponseEntity.ok("User created");
+    public ResponseEntity<UserReadDto> createUserWithRole(@RequestBody UserCreateUpdateDto user){
+        return ResponseEntity.ok(authenticationService.registrationEmployee(user));
     }
 
     //TODO: Delete user by login
