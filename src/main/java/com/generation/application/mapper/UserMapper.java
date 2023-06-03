@@ -1,4 +1,4 @@
-package com.generation.application.mapstructMapper;
+package com.generation.application.mapper;
 
 import com.generation.application.dto.UserCreateUpdateDto;
 import com.generation.application.dto.UserReadDto;

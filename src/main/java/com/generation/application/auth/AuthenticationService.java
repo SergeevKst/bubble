@@ -30,6 +30,7 @@ public class AuthenticationService {
                 .phoneNumber(request.phoneNumber())
                 .password(passwordEncoder.encode(request.password()))
                 .role(Role.USER)
+                .balance(request.balance())
                 .build();
         userService.save(user);
         var jwtToken = jwtService.generateToken(user);

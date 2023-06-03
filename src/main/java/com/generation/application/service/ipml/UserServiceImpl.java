@@ -2,7 +2,7 @@ package com.generation.application.service.ipml;
 
 import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Order;
-import com.generation.application.mapstructMapper.UserMapper;
+import com.generation.application.mapper.UserMapper;
 import com.generation.application.model.Role;
 import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,11 +76,32 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Set<UserReadDto> findAllEmployee() {
-        Set<User> userset = userRepository.findAllEployee(Role.USER);
+        Set<User> userset = userRepository.findAllEmployee(Role.USER);
         Set<UserReadDto> userReadDto = new HashSet<>();
         for(User user:userset){
             userReadDto.add(userMapper.toDto(user));
         }
         return userReadDto;
+    }
+
+    @Override
+    public User findByRole(Role role) {
+        return userRepository.findByRole(role);
+    }
+
+    @Override
+    public UserReadDto findById(Integer userId) {
+        return userMapper.toDto(
+                userRepository.findById(userId)
+                        .orElseThrow(()->new UsernameNotFoundException("Id not found"))
+        );
+    }
+
+    @Override
+    public void updateUserBalance(Integer userId, BigDecimal balance){
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("Id not found"));
+        user.setBalance(balance);
+        userRepository.save(user);
     }
 }
