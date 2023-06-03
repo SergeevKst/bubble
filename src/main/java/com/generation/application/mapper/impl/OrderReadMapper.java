@@ -8,6 +8,8 @@ import com.generation.application.mapper.OrderDetailsReadMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -19,7 +21,7 @@ public class OrderReadMapper implements Mapper<Order, OrderReadDto> {
     @Override
     public OrderReadDto map(Order object) {
         return new OrderReadDto(object.getId(),
-                object.getUsers()
+                Optional.ofNullable(object.getUsers()).orElseGet(HashSet::new)
                         .stream()
                         .collect(Collectors.toMap(
                                 User::getLogin, User::getRole)

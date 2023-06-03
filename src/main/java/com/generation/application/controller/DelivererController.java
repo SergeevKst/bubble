@@ -20,27 +20,27 @@ public class DelivererController {
     private final OrderService orderService;
 
 
-    //TODO: add method findByOrdersInProgress and other
-    @GetMapping("/ordersInProgress")
-    public ResponseEntity<Set<OrderCreateUpdateDto>> getOrdersInProgress(){
-        return ResponseEntity.ok(orderService.findByOrdersInProgress);
-    }
-
-
-
-    //changeStatus(idOrder, OrderStatus - статус на который меняем текущий статус)
-    @PostMapping("/ordersInProgress/{id}")
-    public ResponseEntity takeOrder(@PathVariable Integer id){
-        return ResponseEntity.ok(orderService.changeStatusOrderAsignetDeliverer(id));
-    }
-
-    @PostMapping("/orderDone/{id}")
-    public ResponseEntity doneOrder(@PathVariable Integer id){
-        return ResponseEntity.ok(orderService.changeStatusOrderDone(id));
-    }
-
-    @PostMapping("/orderDecline/{id}")
-    public ResponseEntity orderDecline(@PathVariable Integer id){
-        return ResponseEntity.ok(orderService.changeStatusOrderInProgress(id));
-    }
+//    //TODO: add method findByOrdersInProgress and other
+//    @GetMapping("/ordersInProgress")
+//    public ResponseEntity<Set<OrderCreateUpdateDto>> getOrdersInProgress(){
+//        return ResponseEntity.ok(orderService.findByOrdersInProgress);
+//    }
+//
+//
+//
+//    //changeStatus(idOrder, OrderStatus - статус на который меняем текущий статус)
+//    @PostMapping("/ordersInProgress/{id}")
+//    public ResponseEntity takeOrder(@PathVariable Integer id){
+//        return ResponseEntity.ok(orderService.changeStatusOrderAsignetDeliverer(id));
+//    }
+//
+//    @PostMapping("/orderDone/{id}")
+//    public ResponseEntity doneOrder(@PathVariable Integer id){
+//        return ResponseEntity.ok(orderService.changeStatusOrderDone(id));
+//    }
+//
+//    @PostMapping("/orderDecline/{id}")
+//    public ResponseEntity orderDecline(@PathVariable Integer id){
+//        return ResponseEntity.ok(orderService.changeStatusOrderInProgress(id));
+//    }
 }
