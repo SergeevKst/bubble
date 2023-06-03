@@ -6,6 +6,7 @@ import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
 
+import java.util.List;
 import java.util.Set;
 
 public interface OrderService {
@@ -14,6 +15,7 @@ public interface OrderService {
 
     Set<OrderReadDto> findByUserId(Integer id);
 
+    List<OrderReadDto> findAllOrders();
     Set<OrderReadDto> findOrderByAddress(Address address);
 
     OrderReadDto findById(Integer id);

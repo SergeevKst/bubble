@@ -1,5 +1,7 @@
 package com.generation.application.auth;
 
+import com.generation.application.dto.UserCreateUpdateDto;
+import com.generation.application.dto.UserReadDto;
 import com.generation.application.jwt.JwtService;
 import com.generation.application.entity.User;
 import com.generation.application.model.Role;
@@ -57,5 +59,16 @@ public class AuthenticationService {
         final String jwt;
         jwt = authHeader.substring(7);
         return jwtService.extractLogin(jwt);
+    }
+
+    public UserReadDto registrationEmployee(UserCreateUpdateDto employee){
+        User user = User.builder()
+                .login(employee.login())
+                .firstName(employee.firstName())
+                .lastName(employee.lastName())
+                .password(passwordEncoder.encode(employee.password()))
+                .role(Role.valueOf(employee.role()))
+                .phoneNumber(employee.phoneNumber()).build();
+        return userService.save(user);
     }
 }

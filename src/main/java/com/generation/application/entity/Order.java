@@ -1,13 +1,6 @@
 package com.generation.application.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,8 +26,16 @@ public class Order implements BaseEntity<Integer>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToMany(mappedBy = "orders",cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "orders",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private OrderDetails orderDetails;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderDetails=" + orderDetails +
+                '}';
+    }
 }
