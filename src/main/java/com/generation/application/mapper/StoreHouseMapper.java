@@ -1,4 +1,4 @@
-package com.generation.application.mapstructMapper;
+package com.generation.application.mapper;
 
 import com.generation.application.dto.StorehouseCreateUpdateDto;
 import com.generation.application.dto.StorehouseReadDto;
@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface StoreHouseMapper {
 
-    StorehouseReadDto toDto(Order entity);
+    StorehouseReadDto toDto(Storehouse entity);
 
     Storehouse toEntity(StorehouseCreateUpdateDto dto);
 }

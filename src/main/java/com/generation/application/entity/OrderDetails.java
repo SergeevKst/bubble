@@ -3,6 +3,7 @@ package com.generation.application.entity;
 import com.generation.application.model.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.FetchMode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
@@ -31,13 +32,14 @@ public class OrderDetails implements BaseEntity<Integer>, Serializable {
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
     @CreationTimestamp
-    @Column(name="create_date")
+    @Column(name = "create_date")
     private LocalDate createDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Embedded
     private Address address;
-    @OneToOne()
+    @ToString.Exclude
+    @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Order order;
 }

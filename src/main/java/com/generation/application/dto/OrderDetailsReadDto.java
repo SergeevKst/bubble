@@ -12,7 +12,5 @@ public record OrderDetailsReadDto(int id,
                                   LocalDate createDate,
                                   LocalDate deliveryDate,
                                   OrderStatus status,
-                                  Address address,
-                                  int orderId) {
-
+                                  Address address) {
 }

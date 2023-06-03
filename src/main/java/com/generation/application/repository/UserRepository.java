@@ -15,6 +15,7 @@ public interface UserRepository extends JpaRepository <User,Integer> {
     User findByIdWithOrder(Integer id);
 
     @Query("select u from User u where u.role !=?1 ")
-    Set<User> findAllEployee(Role role);
+    Set<User> findAllEmployee(Role role);
 
+    User findByRole(Role role);
 }
