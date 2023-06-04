@@ -28,6 +28,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         var owner = userService.findByRole(Role.OWNER);
         userService.updateUserBalance(owner.getId(),
                 owner.getBalance().add(cost));
+        //TODO: changed order status PAID
     }
     private void checkCorrect(BigDecimal balance, BigDecimal cost){
         if((balance.compareTo(cost)>0)){

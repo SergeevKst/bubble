@@ -5,10 +5,14 @@ import com.generation.application.dto.StorehouseReadDto;
 import com.generation.application.service.StorehouseService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
@@ -16,6 +20,7 @@ import java.util.Set;
 @RequestMapping("/api/v1/storehouse")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
+@PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
 public class StorehouseController {
 
     private final StorehouseService storehouseService;
@@ -32,7 +37,6 @@ public class StorehouseController {
     }
 
     @PostMapping("/addItem")
-    @PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
     public ResponseEntity<StorehouseReadDto> addItem(@RequestBody StorehouseCreateUpdateDto item){
         return ResponseEntity.ok(storehouseService.add(item));
     }

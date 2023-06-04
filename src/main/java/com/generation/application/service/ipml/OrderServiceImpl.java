@@ -8,6 +8,7 @@ import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
 import com.generation.application.mapper.OrderMapper;
 import com.generation.application.mapper.UserMapper;
+import com.generation.application.model.OrderStatus;
 import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.OrderService;
@@ -96,5 +97,18 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto) {
         return orderMapper.toDto(orderRepository.save(orderMapper.toEntity(orderCreateUpdateDto)));
+    }
+
+    //TODO: implements methods
+    @Transactional
+    @Override
+    public void changeStatus(Integer id, OrderStatus orderStatus) {
+
+    }
+
+    @Transactional
+    @Override
+    public List<OrderReadDto> findAllOrdersPaid() {
+        return null;
     }
 }
