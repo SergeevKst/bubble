@@ -25,7 +25,7 @@ public interface OrderService {
 
     OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto);
 
-    void changeStatus(Integer id, OrderStatus orderStatus);
+    void changeStatusOrder(Integer id, OrderStatus orderStatus);
 
     List<OrderReadDto> findAllOrdersPaid();
 }

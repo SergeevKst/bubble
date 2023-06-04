@@ -102,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
     //TODO: implements methods
     @Transactional
     @Override
-    public void changeStatus(Integer id, OrderStatus orderStatus) {
+    public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
 
     }
 
