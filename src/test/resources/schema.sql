@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.user
     `last_name`   VARCHAR(45)  NOT NULL,
     `role`        VARCHAR(45)  NOT NULL,
     `password`    VARCHAR(300) NOT NULL,
+    `balance`     DECIMAL      NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE
 );

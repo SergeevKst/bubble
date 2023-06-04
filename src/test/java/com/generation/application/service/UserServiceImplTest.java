@@ -1,9 +1,9 @@
-package com.generation.application.service;
+package java.com.generation.application.service;
 
 import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
-import com.generation.application.mapper.impl.UserReadMapper;
+import com.generation.application.mapper.UserMapper;
 import com.generation.application.model.Role;
 import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
     @Mock private UserRepository userRepository;
-    @Mock private UserReadMapper userReadMapper;
+    @Mock private UserMapper userReadMapper;
     @Mock private OrderRepository orderRepository;
     @Spy
     private HashSet<Order> mockHashSetWithOrder;
@@ -60,7 +61,8 @@ public class UserServiceImplTest {
                 "Test",
                 "Test",
                 "Test",
-                null);
+                null,
+                new BigDecimal("0.00001"));
 
         testOrder = Order.builder()
                 .id(1)
@@ -86,7 +88,7 @@ public class UserServiceImplTest {
         when(userRepository.findByLogin(testUser.getLogin()))
                 .thenReturn(Optional.ofNullable(testUser)
                 );
-        when(userReadMapper.map(testUser))
+        when(userReadMapper.toDto(testUser))
                 .thenReturn(userReadDto);
         var userByLogin = userService.findUserByLogin(testUser.getLogin());
         //then
@@ -97,7 +99,7 @@ public class UserServiceImplTest {
         //when
         when(userRepository.findByIdWithOrder(1))
                 .thenReturn(testUser);
-        when(userReadMapper.map(testUser))
+        when(userReadMapper.toDto(testUser))
                 .thenReturn(userReadDto);
         UserReadDto byIdWithOrder = userService.findByIdWithOrder(1);
         Assertions.assertThat(byIdWithOrder).isNotNull();
@@ -120,7 +122,7 @@ public class UserServiceImplTest {
         //when
         when(userRepository.save(testUser))
                 .thenReturn(testUser);
-        when(userReadMapper.map(testUser))
+        when(userReadMapper.toDto(testUser))
                 .thenReturn(userReadDto);
         var savedUserLikeDto = userService.save(testUser);
         //then
@@ -143,7 +145,7 @@ public class UserServiceImplTest {
         when(mockHashSetWithOrder.add(testOrder))
                 .thenReturn(true);
 
-        when(userReadMapper.map(testUser))
+        when(userReadMapper.toDto(testUser))
                 .thenReturn(userReadDto);
 
         when(userRepository.save(testUser))
@@ -163,7 +165,7 @@ public class UserServiceImplTest {
 
         when(orderRepository.findById(testOrder.getId()))
                 .thenReturn(Optional.ofNullable(testOrder));
-        when(userReadMapper.map(testUser))
+        when(userReadMapper.toDto(testUser))
                 .thenReturn(userReadDto);
 
         when(userRepository.save(testUser))

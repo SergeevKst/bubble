@@ -83,12 +83,10 @@ public class OrderServiceImplTest {
                         1,
                         new BigDecimal(100),
                         100,
-                        System.currentTimeMillis(),
-                        System.currentTimeMillis()+1,
+                        LocalDate.now(),
+                        LocalDate.now().plusDays(1),
                         OrderStatus.NEW,
-                        Address.builder().build(),
-
-
+                        Address.builder().build()
                 ));
 
         testOrder = Order.builder()

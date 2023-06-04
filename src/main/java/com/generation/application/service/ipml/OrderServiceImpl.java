@@ -20,8 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
                 address.getApartmentNumber());
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
         for (Order order : orderSet) {
-            orderReadDtoSet.add(orderReadMapper.map(order));
+            orderReadDtoSet.add(orderMapper.toDto(order));
         }
         return orderReadDtoSet;
     }
@@ -76,13 +76,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderReadDto findById(Integer id) {
-        return orderReadMapper.map(orderRepository.findById(id).orElse(null));
+        return orderMapper.toDto(orderRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional
     public UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
-        Order order = orderFromDtoToEntityMapper.map(orderCreateUpdateDto);
+        Order order = orderMapper.toEntity(orderCreateUpdateDto);
         User user = userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (user.getOrders() != null) {
             user.getOrders().add(order);
@@ -91,13 +91,31 @@ public class OrderServiceImpl implements OrderService {
             orderSet.add(order);
             user.setOrders(orderSet);
         }
-        return userReadDtoMapper.map(userRepository.save(user));
+        return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
     @Transactional
     public OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto) {
-        return orderReadMapper.map(orderRepository.save(orderFromDtoToEntityMapper.map(orderCreateUpdateDto)));
+        return orderMapper.toDto(orderRepository.save(orderMapper.toEntity(orderCreateUpdateDto)));
     }
 
+    @Transactional
+    @Override
+    public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
+
+        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        order.getOrderDetails().setStatus(orderStatus);
+        orderRepository.save(order);
+
+    }
+
+    @Transactional
+    @Override
+    public List<OrderReadDto> findAllOrdersPaid() {
+        var ordersPaidList = orderRepository.findByPaidStatus();
+        return ordersPaidList.stream()
+                .map(orderMapper::toDto)
+                .toList();
+    }
 }
