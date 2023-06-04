@@ -16,10 +16,8 @@ import com.generation.application.model.Role;
 import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.ipml.OrderServiceImpl;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,7 +32,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -186,18 +183,6 @@ public class OrderServiceImplTest {
                 .thenReturn(Set.of(testOrder));
         Set<OrderReadDto> byUserId = orderService.findByUserId(testUser.getId());
         assertThat(byUserId).isNotEmpty();
-    }
-
-    @Test
-    public void findOrderByAddressTest() {
-        when(orderRepository.findOrderByAddress(
-                testAddress.getCity()
-                , testAddress.getStreet()
-                , testAddress.getHouseNumber()
-                , testAddress.getApartmentNumber()))
-                .thenReturn(Set.of(testOrder));
-        Set<OrderReadDto> orderByAddress = orderService.findOrderByAddress(testAddress);
-        assertThat(orderByAddress).isNotEmpty();
     }
 
     @Test

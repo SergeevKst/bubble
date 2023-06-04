@@ -82,19 +82,6 @@ public class OrderRepositoryTest {
     }
 
     @Test
-    public void findOrderByAddressTest() {
-        //when
-        Set<Order> orders = orderRepository.findOrderByAddress(
-                testAddress.getCity(),
-                testAddress.getStreet(),
-                testAddress.getHouseNumber(),
-                testAddress.getApartmentNumber()
-        );
-        //then
-        Assertions.assertThat(orders).isNotEmpty();
-    }
-
-    @Test
     public void findOrderByUserIdTest() {
         //when
         savedUser.setOrders(Set.of(savedOrder));

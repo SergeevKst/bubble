@@ -18,8 +18,6 @@ public interface OrderService {
 
     List<OrderReadDto> findAllOrders();
 
-    Set<OrderReadDto> findOrderByAddress(Address address);
-
     OrderReadDto findById(Integer id);
 
     UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login);
