@@ -3,6 +3,7 @@ package com.generation.application.controller;
 import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
 import com.generation.application.dto.UserReadDto;
+import com.generation.application.model.OrderStatus;
 import com.generation.application.service.OrderService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,13 @@ public class OrderController {
     @GetMapping("/ordersUser/{id}")
     public ResponseEntity<Set<OrderReadDto>> getOrdersByUserId(@PathVariable Integer id) {
         return ResponseEntity.ok(orderService.findByUserId(id));
+    }
+
+    @PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
+    @PostMapping("/changedStatus")
+    public ResponseEntity<String> changedStatus(@RequestParam Integer id,
+                                                @RequestParam OrderStatus orderStatus) {
+        orderService.changeStatusOrder(id, orderStatus);
+        return ResponseEntity.ok("Status changed");
     }
 }

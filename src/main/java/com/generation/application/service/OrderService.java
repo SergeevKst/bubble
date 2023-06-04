@@ -4,6 +4,8 @@ import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderReadDto;
 import com.generation.application.dto.UserReadDto;
 import com.generation.application.entity.Address;
+import com.generation.application.model.OrderStatus;
+
 
 import java.util.List;
 import java.util.Set;
@@ -24,4 +26,7 @@ public interface OrderService {
 
     OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto);
 
+    void changeStatusOrder(Integer id, OrderStatus orderStatus);
+
+    List<OrderReadDto> findAllOrdersPaid();
 }

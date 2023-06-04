@@ -20,6 +20,7 @@ import java.util.Set;
 @RequestMapping("/api/v1/storehouse")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
+@PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
 public class StorehouseController {
 
     private final StorehouseService storehouseService;

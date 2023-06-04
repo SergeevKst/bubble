@@ -4,6 +4,7 @@ import com.generation.application.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Set;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
@@ -19,4 +20,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select u.orders from User u where u.id=?1")
     Set<Order> findOrderByUserId(Integer id);
 
+    @Query("select o from Order o where o.orderDetails.status='PAID'")
+    List<Order> findByPaidStatus();
 }

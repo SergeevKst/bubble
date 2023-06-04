@@ -8,6 +8,7 @@ import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
 import com.generation.application.mapper.OrderMapper;
 import com.generation.application.mapper.UserMapper;
+import com.generation.application.model.OrderStatus;
 import com.generation.application.repository.OrderRepository;
 import com.generation.application.repository.UserRepository;
 import com.generation.application.service.OrderService;
@@ -20,6 +21,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -96,5 +98,24 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto) {
         return orderMapper.toDto(orderRepository.save(orderMapper.toEntity(orderCreateUpdateDto)));
+    }
+
+    @Transactional
+    @Override
+    public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
+
+        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        order.getOrderDetails().setStatus(orderStatus);
+        orderRepository.save(order);
+
+    }
+
+    @Transactional
+    @Override
+    public List<OrderReadDto> findAllOrdersPaid() {
+        var ordersPaidList = orderRepository.findByPaidStatus();
+        return ordersPaidList.stream()
+                .map(orderMapper::toDto)
+                .toList();
     }
 }
