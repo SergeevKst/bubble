@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -99,16 +100,22 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(orderRepository.save(orderMapper.toEntity(orderCreateUpdateDto)));
     }
 
-    //TODO: implements methods
     @Transactional
     @Override
     public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
+
+        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        order.getOrderDetails().setStatus(orderStatus);
+        orderRepository.save(order);
 
     }
 
     @Transactional
     @Override
     public List<OrderReadDto> findAllOrdersPaid() {
-        return null;
+        var ordersPaidList = orderRepository.findByPaidStatus();
+        return ordersPaidList.stream()
+                .map(orderMapper::toDto)
+                .toList();
     }
 }

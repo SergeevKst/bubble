@@ -1,5 +1,6 @@
 package com.generation.application.service.ipml;
 
+import com.generation.application.model.OrderStatus;
 import com.generation.application.model.Role;
 import com.generation.application.service.MoneyTransferService;
 import com.generation.application.service.OrderService;
@@ -28,7 +29,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         var owner = userService.findByRole(Role.OWNER);
         userService.updateUserBalance(owner.getId(),
                 owner.getBalance().add(cost));
-        //TODO: changed order status PAID
+        orderService.changeStatusOrder(orderId, OrderStatus.PAID);
     }
     private void checkCorrect(BigDecimal balance, BigDecimal cost){
         if((balance.compareTo(cost)>0)){

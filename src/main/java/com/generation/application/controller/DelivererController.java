@@ -29,19 +29,19 @@ public class DelivererController {
 
 
     @PostMapping("/ordersPaid/{id}")
-    public ResponseEntity takeOrder(@RequestParam Integer id) {
+    public ResponseEntity<String> takeOrder(@RequestParam Integer id) {
         orderService.changeStatusOrder(id, OrderStatus.IN_PROGRESS);
         return ResponseEntity.ok("Order in progress");
     }
 
     @PostMapping("/orderDone/{id}")
-    public ResponseEntity doneOrder(@PathVariable Integer id) {
+    public ResponseEntity<String> doneOrder(@PathVariable Integer id) {
         orderService.changeStatusOrder(id, OrderStatus.DONE);
         return ResponseEntity.ok("Order done");
     }
 
     @PostMapping("/orderDecline/{id}")
-    public ResponseEntity orderDecline(@PathVariable Integer id) {
+    public ResponseEntity<String> orderDecline(@PathVariable Integer id) {
         orderService.changeStatusOrder(id, OrderStatus.PAID);
         return ResponseEntity.ok("Decline order");
     }
