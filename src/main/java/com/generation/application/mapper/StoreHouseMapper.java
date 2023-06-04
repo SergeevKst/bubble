@@ -2,7 +2,6 @@ package com.generation.application.mapper;
 
 import com.generation.application.dto.StorehouseCreateUpdateDto;
 import com.generation.application.dto.StorehouseReadDto;
-import com.generation.application.entity.Order;
 import com.generation.application.entity.Storehouse;
 import org.mapstruct.Mapper;
 

@@ -8,7 +8,9 @@ import java.util.Set;
 public interface StorehouseService {
 
     int findMaterialCountById(String name);
-    Set<StorehouseReadDto> findAllItem ();
+
+    Set<StorehouseReadDto> findAllItem();
+
     StorehouseReadDto add(StorehouseCreateUpdateDto item);
 
 }

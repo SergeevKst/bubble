@@ -9,6 +9,6 @@ public record RegisterRequestDto(String login,
                                  String lastName,
                                  String password,
                                  BigDecimal balance
-                              ) {
+) {
 
 }

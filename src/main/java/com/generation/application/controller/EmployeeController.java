@@ -4,12 +4,9 @@ package com.generation.application.controller;
 import com.generation.application.auth.AuthenticationService;
 import com.generation.application.dto.UserCreateUpdateDto;
 import com.generation.application.dto.UserReadDto;
-import com.generation.application.entity.User;
-import com.generation.application.repository.UserRepository;
 import com.generation.application.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +24,13 @@ public class EmployeeController {
     private final AuthenticationService authenticationService;
 
     @GetMapping()
-    public ResponseEntity<Set<UserReadDto>> getAllEmployee(){
+    public ResponseEntity<Set<UserReadDto>> getAllEmployee() {
         return ResponseEntity.ok(userService.findAllEmployee());
     }
 
 
     @PostMapping("/createEmployee")
-    public ResponseEntity<UserReadDto> createUserWithRole(@RequestBody UserCreateUpdateDto user){
+    public ResponseEntity<UserReadDto> createUserWithRole(@RequestBody UserCreateUpdateDto user) {
         return ResponseEntity.ok(authenticationService.registrationEmployee(user));
     }
 }
