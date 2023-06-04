@@ -5,6 +5,7 @@ import com.generation.application.entity.User;
 import com.generation.application.model.Role;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -20,7 +21,7 @@ public interface UserService {
 
     UserReadDto removeOrderFromEmployee(String login, Integer idOrder);
 
-    Set<UserReadDto> findAllEmployee();
+    List<UserReadDto> findAllEmployee();
 
     User findByRole(Role role);
 

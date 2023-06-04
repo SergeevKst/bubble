@@ -53,12 +53,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public List<OrderReadDto> findAllOrders() {
-        List<Order> orderSet = orderRepository.findAll();
-        List<OrderReadDto> orderReadDtoSet = new LinkedList<>();
-        for (Order order : orderSet) {
-            orderReadDtoSet.add(orderMapper.toDto(order));
+        List<Order> orderList = orderRepository.findAll();
+        List<OrderReadDto> orderReadDtoList = new LinkedList<>();
+        for (Order order : orderList) {
+            orderReadDtoList.add(orderMapper.toDto(order));
         }
-        return orderReadDtoSet;
+        return orderReadDtoList;
     }
 
     @Override
@@ -103,11 +103,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
-
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
         order.getOrderDetails().setStatus(orderStatus);
         orderRepository.save(order);
-
     }
 
     @Transactional

@@ -1,8 +1,9 @@
-package com.generation.application.repository;
+package com.generation.application.integration.repository;
 
 import com.generation.application.entity.Order;
 import com.generation.application.entity.User;
 import com.generation.application.model.Role;
+import com.generation.application.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

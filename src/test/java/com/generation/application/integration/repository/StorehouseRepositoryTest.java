@@ -1,6 +1,7 @@
-package com.generation.application.repository;
+package com.generation.application.integration.repository;
 
 import com.generation.application.entity.Storehouse;
+import com.generation.application.repository.StorehouseRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

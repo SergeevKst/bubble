@@ -1,4 +1,4 @@
-package com.generation.application.repository;
+package com.generation.application.integration.repository;
 
 import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
