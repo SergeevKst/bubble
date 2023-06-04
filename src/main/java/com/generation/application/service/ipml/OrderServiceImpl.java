@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
                 address.getApartmentNumber());
         Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
         for (Order order : orderSet) {
-            orderReadDtoSet.add(orderMapper.toDto(order));
+            orderReadDtoSet.add(orderReadMapper.map(order));
         }
         return orderReadDtoSet;
     }
@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public UserReadDto saveOrder(OrderCreateUpdateDto orderCreateUpdateDto, String login) {
-        Order order = orderMapper.toEntity(orderCreateUpdateDto);
+        Order order = orderFromDtoToEntityMapper.map(orderCreateUpdateDto);
         User user = userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (user.getOrders() != null) {
             user.getOrders().add(order);
@@ -91,31 +91,13 @@ public class OrderServiceImpl implements OrderService {
             orderSet.add(order);
             user.setOrders(orderSet);
         }
-        return userMapper.toDto(userRepository.save(user));
+        return userReadDtoMapper.map(userRepository.save(user));
     }
 
     @Override
     @Transactional
     public OrderReadDto update(OrderCreateUpdateDto orderCreateUpdateDto) {
-        return orderMapper.toDto(orderRepository.save(orderMapper.toEntity(orderCreateUpdateDto)));
+        return orderReadMapper.map(orderRepository.save(orderFromDtoToEntityMapper.map(orderCreateUpdateDto)));
     }
 
-    @Transactional
-    @Override
-    public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
-
-        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
-        order.getOrderDetails().setStatus(orderStatus);
-        orderRepository.save(order);
-
-    }
-
-    @Transactional
-    @Override
-    public List<OrderReadDto> findAllOrdersPaid() {
-        var ordersPaidList = orderRepository.findByPaidStatus();
-        return ordersPaidList.stream()
-                .map(orderMapper::toDto)
-                .toList();
-    }
 }
