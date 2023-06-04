@@ -23,7 +23,7 @@ public class StorehouseServiceImpl implements StorehouseService {
 
     @Override
     @Transactional
-    public int findMaterialCountById(String name) {
+    public int findMaterialCountByName(String name) {
         return storehouseRepository.findMaterialCountByMaterialName(name);
     }
 
