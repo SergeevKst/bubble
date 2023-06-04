@@ -1,4 +1,4 @@
-package java.com.generation.application.repository;
+package com.generation.application.repository;
 
 import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
@@ -91,7 +91,7 @@ public class OrderRepositoryTest {
                 testAddress.getApartmentNumber()
         );
         //then
-        Assertions.assertThat(orders.isEmpty()).isFalse();
+        Assertions.assertThat(orders).isNotEmpty();
     }
 
     @Test
