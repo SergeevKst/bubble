@@ -24,13 +24,13 @@ public class EmployeeController {
     private final AuthenticationService authenticationService;
 
     @GetMapping()
-    public ResponseEntity<Set<UserReadDto>> getAllEmployee(){
+    public ResponseEntity<Set<UserReadDto>> getAllEmployee() {
         return ResponseEntity.ok(userService.findAllEmployee());
     }
 
 
     @PostMapping("/createEmployee")
-    public ResponseEntity<UserReadDto> createUserWithRole(@RequestBody UserCreateUpdateDto user){
+    public ResponseEntity<UserReadDto> createUserWithRole(@RequestBody UserCreateUpdateDto user) {
         return ResponseEntity.ok(authenticationService.registrationEmployee(user));
     }
 }

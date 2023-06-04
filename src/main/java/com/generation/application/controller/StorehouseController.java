@@ -27,17 +27,18 @@ public class StorehouseController {
 
 
     @GetMapping
-    public ResponseEntity<Set<StorehouseReadDto>> getAllRemainderByStorehouse(){
+    public ResponseEntity<Set<StorehouseReadDto>> getAllRemainderByStorehouse() {
         return ResponseEntity.ok(storehouseService.findAllItem());
     }
 
     @GetMapping("/materialCountByName/{name}")
-    public ResponseEntity<Integer> getMaterialCountByName(@PathVariable String name){
+    public ResponseEntity<Integer> getMaterialCountByName(@PathVariable String name) {
         return ResponseEntity.ok(storehouseService.findMaterialCountById(name));
     }
 
     @PostMapping("/addItem")
-    public ResponseEntity<StorehouseReadDto> addItem(@RequestBody StorehouseCreateUpdateDto item){
+    @PreAuthorize("hasAuthority('OWNER') or hasAuthority('MANAGER')")
+    public ResponseEntity<StorehouseReadDto> addItem(@RequestBody StorehouseCreateUpdateDto item) {
         return ResponseEntity.ok(storehouseService.add(item));
     }
 }

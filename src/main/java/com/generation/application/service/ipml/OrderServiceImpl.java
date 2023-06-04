@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderReadDto> findAllOrders() {
         List<Order> orderSet = orderRepository.findAll();
         List<OrderReadDto> orderReadDtoSet = new LinkedList<>();
-        for(Order order : orderSet){
+        for (Order order : orderSet) {
             orderReadDtoSet.add(orderMapper.toDto(order));
         }
         return orderReadDtoSet;

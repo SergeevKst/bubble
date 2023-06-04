@@ -29,10 +29,10 @@ public class StorehouseServiceImpl implements StorehouseService {
 
     @Transactional
     @Override
-    public Set<StorehouseReadDto> findAllItem (){
+    public Set<StorehouseReadDto> findAllItem() {
         List<Storehouse> storehouses = storehouseRepository.findAll();
         Set<StorehouseReadDto> storehouseReadDto = new HashSet<>();
-        for(Storehouse storehouse:storehouses){
+        for (Storehouse storehouse : storehouses) {
             storehouseReadDto.add(storeHouseMapper.toDto(storehouse));
         }
         return storehouseReadDto;
