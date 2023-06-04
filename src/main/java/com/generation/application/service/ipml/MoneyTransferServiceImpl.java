@@ -15,22 +15,24 @@ import java.math.BigDecimal;
 public class MoneyTransferServiceImpl implements MoneyTransferService {
     private final UserService userService;
     private final OrderService orderService;
+
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void transfer(Integer userId, Integer orderId) {
         var balance = userService.findById(userId).balance();
-        var cost= orderService.findById(orderId)
+        var cost = orderService.findById(orderId)
                 .orderDetails()
                 .cost();
-        checkCorrect(cost,balance);
-        userService.updateUserBalance(userId,balance.subtract(cost));
+        checkCorrect(cost, balance);
+        userService.updateUserBalance(userId, balance.subtract(cost));
 
         var owner = userService.findByRole(Role.OWNER);
         userService.updateUserBalance(owner.getId(),
                 owner.getBalance().add(cost));
     }
-    private void checkCorrect(BigDecimal balance, BigDecimal cost){
-        if((balance.compareTo(cost)>0)){
+
+    private void checkCorrect(BigDecimal balance, BigDecimal cost) {
+        if ((balance.compareTo(cost) > 0)) {
             throw new IllegalStateException("You don't have enough money");
         }
     }

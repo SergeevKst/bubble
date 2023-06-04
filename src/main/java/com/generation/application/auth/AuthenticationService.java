@@ -55,14 +55,14 @@ public class AuthenticationService {
         return user.getRole().name();
     }
 
-    public String getUserLogin(@NonNull HttpServletRequest request){
+    public String getUserLogin(@NonNull HttpServletRequest request) {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         jwt = authHeader.substring(7);
         return jwtService.extractLogin(jwt);
     }
 
-    public UserReadDto registrationEmployee(UserCreateUpdateDto employee){
+    public UserReadDto registrationEmployee(UserCreateUpdateDto employee) {
         User user = User.builder()
                 .login(employee.login())
                 .firstName(employee.firstName())

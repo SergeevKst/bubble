@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     public Set<UserReadDto> findAllEmployee() {
         Set<User> userset = userRepository.findAllEmployee(Role.USER);
         Set<UserReadDto> userReadDto = new HashSet<>();
-        for(User user:userset){
+        for (User user : userset) {
             userReadDto.add(userMapper.toDto(user));
         }
         return userReadDto;
@@ -93,12 +93,12 @@ public class UserServiceImpl implements UserService {
     public UserReadDto findById(Integer userId) {
         return userMapper.toDto(
                 userRepository.findById(userId)
-                        .orElseThrow(()->new UsernameNotFoundException("Id not found"))
+                        .orElseThrow(() -> new UsernameNotFoundException("Id not found"))
         );
     }
 
     @Override
-    public void updateUserBalance(Integer userId, BigDecimal balance){
+    public void updateUserBalance(Integer userId, BigDecimal balance) {
         var user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("Id not found"));
         user.setBalance(balance);
