@@ -1,4 +1,4 @@
-package com.generation.application.service;
+package java.com.generation.application.service;
 
 import com.generation.application.dto.OrderCreateUpdateDto;
 import com.generation.application.dto.OrderDetailsCreateUpdateDto;
@@ -9,7 +9,8 @@ import com.generation.application.entity.Address;
 import com.generation.application.entity.Order;
 import com.generation.application.entity.OrderDetails;
 import com.generation.application.entity.User;
-import com.generation.application.mapper.Mapper;
+import com.generation.application.mapper.OrderMapper;
+import com.generation.application.mapper.UserMapper;
 import com.generation.application.model.OrderStatus;
 import com.generation.application.model.Role;
 import com.generation.application.repository.OrderRepository;
@@ -46,11 +47,9 @@ public class OrderServiceImplTest {
     @Mock
     private UserRepository userRepository;
     @Mock
-    private Mapper<Order, OrderReadDto> orderReadMapper;
+    private OrderMapper orderMapper;
     @Mock
-    private Mapper<OrderCreateUpdateDto, Order> orderFromDtoToEntityMapper;
-    @Mock
-    private Mapper<User, UserReadDto> userReadDtoMapper;
+    private UserMapper userMapper;
     private User testUser;
     private OrderReadDto orderReadDto;
     private Order testOrder;
@@ -107,8 +106,7 @@ public class OrderServiceImplTest {
                  LocalDate.now(),
                  LocalDate.now(),
                  OrderStatus.NEW,
-                 testAddress,
-                 testOrder.getId());
+                 testAddress);
 
         orderReadDto = new OrderReadDto(
                 1,
@@ -133,7 +131,8 @@ public class OrderServiceImplTest {
                 Role.USER.name(),
                 "Test",
                 "Test",
-                Set.of(testOrder.getId()));
+                Set.of(testOrder.getId()),
+                new BigDecimal(1000));
 
         testOrder.setOrderDetails(orderDetails);
         testOrder.setUsers(Set.of(testUser));
@@ -144,7 +143,7 @@ public class OrderServiceImplTest {
         //when
         when(orderRepository.findByIdWithUser(testOrder.getId()))
                 .thenReturn(testOrder);
-        when(orderReadMapper.map(testOrder))
+        when(orderMapper.toDto(testOrder))
                 .thenReturn(orderReadDto);
         var orderReadDtoAfterMethodInvoke = orderService.findByIdWithUser(testOrder.getId());
         //then
@@ -172,7 +171,7 @@ public class OrderServiceImplTest {
     public void findByIdTest(){
         doReturn(Optional.ofNullable(testOrder)).when(orderRepository).findById(any());
 //        doReturn(orderReadDto).when(orderReadMapper).map(any());
-        doReturn(orderReadDto).when(orderFromDtoToEntityMapper).map(any());
+        doReturn(orderReadDto).when(orderMapper).toDto(any());
 
 //        when(orderRepository.findById(1))
 //                .thenReturn(Optional.ofNullable(testOrder));
@@ -186,7 +185,7 @@ public class OrderServiceImplTest {
     public void saveOrderTest(){
         var mock=Mockito.mock(testUser.getClass());
 
-        when(orderFromDtoToEntityMapper.map(orderCreateUpdateDto))
+        when(orderMapper.toEntity(orderCreateUpdateDto))
                 .thenReturn((testOrder));
         when(userRepository.findByLogin(testUser.getLogin()))
                 .thenReturn(Optional.ofNullable(testUser));
@@ -194,7 +193,7 @@ public class OrderServiceImplTest {
                 .thenReturn(testUser);
         when(mock.getOrders())
                 .thenReturn(testUser.getOrders());
-        when(userReadDtoMapper.map(testUser))
+        when(userMapper.toDto(testUser))
                 .thenReturn(userReadDto);
 
         UserReadDto save = orderService.saveOrder(orderCreateUpdateDto, userReadDto.login());
@@ -203,11 +202,11 @@ public class OrderServiceImplTest {
     @Test
     @Disabled
     public void updateTest(){
-        when(orderReadMapper.map(testOrder))
+        when(orderMapper.toDto(testOrder))
                 .thenReturn(orderReadDto);
         when(orderRepository.save(testOrder))
                 .thenReturn(testOrder);
-        when(orderFromDtoToEntityMapper.map(orderCreateUpdateDto))
+        when(orderMapper.toEntity(orderCreateUpdateDto))
                 .thenReturn((testOrder));
         OrderReadDto update = orderService.update(orderCreateUpdateDto);
         Assertions.assertThat(update).isEqualTo(orderReadDto);
