@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,24 +52,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public List<OrderReadDto> findAllOrders() {
-        List<Order> orderSet = orderRepository.findAll();
-        List<OrderReadDto> orderReadDtoSet = new LinkedList<>();
-        for (Order order : orderSet) {
-            orderReadDtoSet.add(orderMapper.toDto(order));
+        List<Order> orderList = orderRepository.findAll();
+        List<OrderReadDto> orderReadDtoList = new LinkedList<>();
+        for (Order order : orderList) {
+            orderReadDtoList.add(orderMapper.toDto(order));
         }
-        return orderReadDtoSet;
-    }
-
-    @Override
-    @Transactional
-    public Set<OrderReadDto> findOrderByAddress(Address address) {
-        Set<Order> orderSet = orderRepository.findOrderByAddress(address.getCity(), address.getStreet(), address.getHouseNumber(),
-                address.getApartmentNumber());
-        Set<OrderReadDto> orderReadDtoSet = new HashSet<>();
-        for (Order order : orderSet) {
-            orderReadDtoSet.add(orderMapper.toDto(order));
-        }
-        return orderReadDtoSet;
+        return orderReadDtoList;
     }
 
     @Override
@@ -103,11 +90,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public void changeStatusOrder(Integer id, OrderStatus orderStatus) {
-
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
         order.getOrderDetails().setStatus(orderStatus);
         orderRepository.save(order);
-
     }
 
     @Transactional

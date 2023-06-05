@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface StorehouseService {
 
-    int findMaterialCountById(String name);
+    int findMaterialCountByName(String name);
 
     Set<StorehouseReadDto> findAllItem();
 

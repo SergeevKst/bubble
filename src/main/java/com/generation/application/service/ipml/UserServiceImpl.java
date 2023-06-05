@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -67,18 +67,22 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserReadDto removeOrderFromEmployee(String login, Integer idOrder) {
-        User user = userRepository.findByLogin(login).orElse(null);
-        Order order = orderRepository.findById(idOrder).orElse(null);
+        User user = userRepository.findByLogin(login).orElseThrow(
+                () -> new IllegalArgumentException("User not found")
+        );
+        Order order = orderRepository.findById(idOrder).orElseThrow(
+                () -> new IllegalArgumentException("Order not found")
+        );
         user.getOrders().remove(order);
         return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
     @Transactional
-    public Set<UserReadDto> findAllEmployee() {
-        Set<User> userset = userRepository.findAllEmployee(Role.USER);
-        Set<UserReadDto> userReadDto = new HashSet<>();
-        for (User user : userset) {
+    public List<UserReadDto> findAllEmployee() {
+        List<User> users = userRepository.findAllEmployee(Role.USER);
+        List<UserReadDto> userReadDto = new ArrayList<>();
+        for (User user : users) {
             userReadDto.add(userMapper.toDto(user));
         }
         return userReadDto;

@@ -5,8 +5,9 @@ import com.generation.application.dto.StorehouseReadDto;
 import com.generation.application.entity.Storehouse;
 import org.mapstruct.Mapper;
 
+
 @Mapper(componentModel = "spring")
-public interface StoreHouseMapper {
+public interface StorehouseMapper {
 
     StorehouseReadDto toDto(Storehouse entity);
 

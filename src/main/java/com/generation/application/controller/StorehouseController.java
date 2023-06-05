@@ -33,7 +33,7 @@ public class StorehouseController {
 
     @GetMapping("/materialCountByName/{name}")
     public ResponseEntity<Integer> getMaterialCountByName(@PathVariable String name) {
-        return ResponseEntity.ok(storehouseService.findMaterialCountById(name));
+        return ResponseEntity.ok(storehouseService.findMaterialCountByName(name));
     }
 
     @PostMapping("/addItem")

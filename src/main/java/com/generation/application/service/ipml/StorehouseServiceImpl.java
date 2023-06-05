@@ -3,7 +3,7 @@ package com.generation.application.service.ipml;
 import com.generation.application.dto.StorehouseCreateUpdateDto;
 import com.generation.application.dto.StorehouseReadDto;
 import com.generation.application.entity.Storehouse;
-import com.generation.application.mapper.StoreHouseMapper;
+import com.generation.application.mapper.StorehouseMapper;
 import com.generation.application.repository.StorehouseRepository;
 import com.generation.application.service.StorehouseService;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +19,11 @@ import java.util.Set;
 public class StorehouseServiceImpl implements StorehouseService {
 
     private final StorehouseRepository storehouseRepository;
-    private final StoreHouseMapper storeHouseMapper;
+    private final StorehouseMapper storehouseMapper;
 
     @Override
     @Transactional
-    public int findMaterialCountById(String name) {
+    public int findMaterialCountByName(String name) {
         return storehouseRepository.findMaterialCountByMaterialName(name);
     }
 
@@ -33,15 +33,15 @@ public class StorehouseServiceImpl implements StorehouseService {
         List<Storehouse> storehouses = storehouseRepository.findAll();
         Set<StorehouseReadDto> storehouseReadDto = new HashSet<>();
         for (Storehouse storehouse : storehouses) {
-            storehouseReadDto.add(storeHouseMapper.toDto(storehouse));
+            storehouseReadDto.add(storehouseMapper.toDto(storehouse));
         }
         return storehouseReadDto;
     }
 
     @Override
     public StorehouseReadDto add(StorehouseCreateUpdateDto item) {
-        return storeHouseMapper.toDto(
+        return storehouseMapper.toDto(
                 storehouseRepository.save(
-                        storeHouseMapper.toEntity(item)));
+                        storehouseMapper.toEntity(item)));
     }
 }

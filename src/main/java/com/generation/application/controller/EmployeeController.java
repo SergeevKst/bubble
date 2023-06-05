@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -24,7 +25,7 @@ public class EmployeeController {
     private final AuthenticationService authenticationService;
 
     @GetMapping()
-    public ResponseEntity<Set<UserReadDto>> getAllEmployee() {
+    public ResponseEntity<List<UserReadDto>> getAllEmployee() {
         return ResponseEntity.ok(userService.findAllEmployee());
     }
 
