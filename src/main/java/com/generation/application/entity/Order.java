@@ -28,7 +28,7 @@ import java.util.Set;
 @Builder
 @ToString
 @Entity
-@Table(name = "orders" , schema = "railway")
+@Table(name = "orders" )
 public class Order implements BaseEntity<Integer>, Serializable {
 
     @Serial
