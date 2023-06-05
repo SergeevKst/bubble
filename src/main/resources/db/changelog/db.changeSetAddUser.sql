@@ -1,7 +1,7 @@
 -- liquibase formatted sql
 -- changeset Sokolin:1
-INSERT bubbleshop.user(phoneNumber, login, first_name, last_name, role, password)
-VALUES ('+3747562', 'TopUser', 'Anton', 'Abramovich', 'OWNER', '$2a$10$Di8CtR9YYJg9kkpKE19S4uxicTVy2WuolJFQX6evILmbTOYF18/5G');
+INSERT bubbleshop.user(phoneNumber, login, first_name, last_name, role, password,balance)
+VALUES ('+3747562', 'TopUser', 'Anton', 'Abramovich', 'OWNER', '$2a$10$Di8CtR9YYJg9kkpKE19S4uxicTVy2WuolJFQX6evILmbTOYF18/5G',9999);
 
 -- changeset Sokolin:2
 INSERT bubbleshop.user(phoneNumber, login, first_name, last_name, role, password)

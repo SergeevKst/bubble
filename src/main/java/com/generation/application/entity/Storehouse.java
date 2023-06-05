@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 @Builder
 @ToString
 @Entity
-@Table(name = "storehouse", schema = "railway")
+@Table(name = "storehouse")
 public class Storehouse implements BaseEntity<Integer>, Serializable {
 
     @Serial

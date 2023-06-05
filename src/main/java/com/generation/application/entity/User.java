@@ -39,7 +39,7 @@ import java.util.Set;
 @ToString
 @Setter
 @Entity
-@Table(name = "user", schema = "railway")
+@Table(name = "user")
 public class User implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;

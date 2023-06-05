@@ -33,7 +33,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "order_details", schema = "railway")
+@Table(name = "order_details")
 public class OrderDetails implements BaseEntity<Integer>, Serializable {
 
     @Serial
