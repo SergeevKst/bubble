@@ -1,7 +1,7 @@
 -- liquibase formatted sql
-CREATE DATABASE IF NOT EXISTS bubbleshop;
+CREATE DATABASE IF NOT EXISTS railway;
 -- changeset sokolin:1
-CREATE TABLE IF NOT EXISTS bubbleshop.orders
+CREATE TABLE IF NOT EXISTS railway.orders
 (
     `id` INT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (`id`)
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.orders
 -- rollback DROP TABLE `orders` CASCADE;
 
 -- changeset sokolin:2
-CREATE TABLE IF NOT EXISTS bubbleshop.order_details
+CREATE TABLE IF NOT EXISTS railway.order_details
 (
     `apartment_number` INT            NULL DEFAULT NULL,
     `bubble_count`     INT            NULL DEFAULT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.order_details
 -- rollback DROP TABLE `order_details` CASCADE;
 
 -- changeset sokolin:3
-CREATE TABLE IF NOT EXISTS bubbleshop.user
+CREATE TABLE IF NOT EXISTS railway.user
 (
     `id`          INT          NOT NULL AUTO_INCREMENT,
     `phoneNumber` VARCHAR(45)  NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS bubbleshop.user
 -- rollback DROP TABLE `user` CASCADE;
 
 -- changeset sokolin:4
-CREATE TABLE IF NOT EXISTS `bubbleshop`.`user_order`
+CREATE TABLE IF NOT EXISTS railway.`user_order`
 (
     `order_id` INT NOT NULL,
     `user_id`  INT NOT NULL,
@@ -49,15 +49,15 @@ CREATE TABLE IF NOT EXISTS `bubbleshop`.`user_order`
     INDEX `FKj86u1x7csa8yd68ql2y1ibrou` (`user_id` ASC) VISIBLE,
     CONSTRAINT `FKj86u1x7csa8yd68ql2y1ibrou`
         FOREIGN KEY (`user_id`)
-            REFERENCES `bubbleshop`.`user` (`id`),
+            REFERENCES railway.`user` (`id`),
     CONSTRAINT `FKrlglekn12wx5o456laekbv32u`
         FOREIGN KEY (`order_id`)
-            REFERENCES `bubbleshop`.`orders` (`id`)
+            REFERENCES railway.`orders` (`id`)
 );
 -- rollback DROP TABLE `user_order` CASCADE;
 
 -- changeset sokolin:5
-CREATE TABLE IF NOT EXISTS bubbleshop.storehouse
+CREATE TABLE IF NOT EXISTS railway.storehouse
 (
     `id`             INT            NOT NULL AUTO_INCREMENT,
     `material_count` INT            NULL,

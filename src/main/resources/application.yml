@@ -16,7 +16,7 @@ spring:
       hibernate:
         hbm2ddl.extra_physical_table_types: PARTITIONED TABLE
         format_sql: true
-        default_schema: bubbleshop
+        default_schema: railway
         jdbc:
           time_zone: UTC
   liquibase:
