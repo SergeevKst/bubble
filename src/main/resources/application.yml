@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bubbleshop
+    url: mysql://root:nZe1yTKFeYxbMw8Hp5l4@containers-us-west-201.railway.app:7912/railway
     username: root
-    password: 1111
+    password: nZe1yTKFeYxbMw8Hp5l4
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect

@@ -7,3 +7,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/db.changeSetAddOrderAndOrderDetails.sql
+
+  - include:
+      file: db/changelog/db.changelog-1.2-03.06.sql

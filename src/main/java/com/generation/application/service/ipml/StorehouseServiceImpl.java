@@ -1,20 +1,47 @@
 package com.generation.application.service.ipml;
 
+import com.generation.application.dto.StorehouseCreateUpdateDto;
+import com.generation.application.dto.StorehouseReadDto;
+import com.generation.application.entity.Storehouse;
+import com.generation.application.mapper.StorehouseMapper;
 import com.generation.application.repository.StorehouseRepository;
 import com.generation.application.service.StorehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class StorehouseServiceImpl implements StorehouseService {
 
     private final StorehouseRepository storehouseRepository;
+    private final StorehouseMapper storehouseMapper;
 
     @Override
     @Transactional
-    public int findMaterialCountById(String name) {
+    public int findMaterialCountByName(String name) {
         return storehouseRepository.findMaterialCountByMaterialName(name);
+    }
+
+    @Transactional
+    @Override
+    public Set<StorehouseReadDto> findAllItem() {
+        List<Storehouse> storehouses = storehouseRepository.findAll();
+        Set<StorehouseReadDto> storehouseReadDto = new HashSet<>();
+        for (Storehouse storehouse : storehouses) {
+            storehouseReadDto.add(storehouseMapper.toDto(storehouse));
+        }
+        return storehouseReadDto;
+    }
+
+    @Override
+    public StorehouseReadDto add(StorehouseCreateUpdateDto item) {
+        return storehouseMapper.toDto(
+                storehouseRepository.save(
+                        storehouseMapper.toEntity(item)));
     }
 }

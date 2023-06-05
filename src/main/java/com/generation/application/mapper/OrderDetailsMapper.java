@@ -1,11 +1,14 @@
 package com.generation.application.mapper;
 
+import com.generation.application.dto.OrderDetailsCreateUpdateDto;
 import com.generation.application.dto.OrderDetailsReadDto;
 import com.generation.application.entity.OrderDetails;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface OrderDetailsReadMapper {
+public interface OrderDetailsMapper {
 
-    OrderDetailsReadDto map(OrderDetails entity);
+    OrderDetailsReadDto toDto(OrderDetails entity);
+
+    OrderDetails toEntity(OrderDetailsCreateUpdateDto dto);
 }
